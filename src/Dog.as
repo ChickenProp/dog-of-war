@@ -11,6 +11,7 @@ public class Dog extends Engine {
                 Data.load("dog-of-war-data");
 
 		FP.console.enable();
+		FP.console.toggleKey = Key.ENTER;
         }
 
         override public function init():void {
