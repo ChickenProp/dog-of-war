@@ -11,17 +11,25 @@ public class Game extends World {
 		Mouse.hide();
 		add(new Player());
 		for (var x:int = 0; x < 10; x++)
+		{
 			add(new BasicEnemy());
+			add(new BouncingEnemy());
+		}
 	}
 	
 	override public function update():void
 	{
 		super.update();
 		var n:int = FP.world.typeCount("enemy");
-		if (n < 10)
+		if (n < 20)
 		{
-			for (; n < 10; n++)
-				add(new BasicEnemy());
+			for (; n < 20; n++)
+			{
+				if(FP.world.classCount(BasicEnemy) <= FP.world.classCount(BouncingEnemy))
+					add(new BasicEnemy());
+				else
+					add(new BouncingEnemy());
+			}
 		}
 	}
 }
