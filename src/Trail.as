@@ -27,6 +27,7 @@ public class Trail {
 			var here:vec = coords[i];
 			var there:vec = coords[i+1];
 			Draw.line(here.x, here.y, there.x, there.y, 0xFFFFFF);
+			Draw.line(here.x + 10, here.y, there.x + 10, there.y, 0xFFFFFF);
 		}
 	}
 }
