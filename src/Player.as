@@ -7,7 +7,7 @@ package {
 		public var trail:Trail = new Trail();
 		
 		public function Player () {
-			graphic = Image.createCircle(5, 0xFFFFFF);
+			graphic = Image.createTriangle(5, 0xFFFFFF);
 			(graphic as Image).centerOO();
 		}
 
