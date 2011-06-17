@@ -5,7 +5,7 @@ package {
 
 	public class Player extends Entity {
 		public function Player () {
-			graphic = Image.createCircle(5, 0xFFFFFF);
+			graphic = Image.createTriangle(5, 0xFFFFFF);
 			(graphic as Image).centerOO();
 		}
 
