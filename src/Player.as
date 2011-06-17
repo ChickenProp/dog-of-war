@@ -8,6 +8,7 @@ package {
 		[Embed(source = '../content/sprites/plane.png')]
 		private const PLANE:Class;
 		private var sprite:Image;
+		public var trail:Trail = new Trail();
 		
 		public function Player () 
 		{
@@ -17,7 +18,7 @@ package {
 			x = 0;
 			y = 0;
 		}
-
+			
 		override public function update () : void 
 		{		
 			super.update();
@@ -43,6 +44,13 @@ package {
 			
 			x = Input.mouseX;
 			y = Input.mouseY;
+
+			trail.addxy(x,y);
+		}
+
+		override public function render () : void {
+			trail.draw();
+			super.render();
 		}
 	}
 }
