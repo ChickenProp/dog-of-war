@@ -1,5 +1,6 @@
 ﻿package net.flashpunk.graphics 
 {
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.geom.ColorTransform;
@@ -68,7 +69,8 @@
 					{
 						_matrix.tx = _point.x;
 						_matrix.ty = _point.y;
-						target.draw(buffer, _matrix, _tint, blend);
+						_bitmap.bitmapData = buffer;
+						target.draw(_bitmap, _matrix, _tint, blend);
 					}
 					else target.copyPixels(buffer, buffer.rect, _point, null, null, true);
 					_point.x += _maxWidth;
@@ -96,6 +98,32 @@
 				_point.x = x - xx;
 				_point.y = y - yy;
 				buffer.copyPixels(source, rect ? rect : source.rect, _point, null, null, true);
+				xx += _maxWidth;
+				if (xx >= _width)
+				{
+					xx = 0;
+					yy += _maxHeight;
+				}
+			}
+		}
+		
+		/**
+		 * Mimics BitmapData's copyPixels method.
+		 * @param	source			Source BitmapData.
+		 * @param	rect			Area of the source image to draw from.
+		 * @param	destPoint		Position to draw at.
+		 * @param	alphaBitmapData	See BitmapData documentation for details.
+		 * @param	alphaPoint		See BitmapData documentation for details.
+		 * @param	mergeAlpha		See BitmapData documentation for details.
+		 */
+		public function copyPixels(source:BitmapData, rect:Rectangle, destPoint:Point, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false):void
+		{
+			var xx:int, yy:int;
+			for each (var buffer:BitmapData in _buffers)
+			{
+				_point.x = destPoint.x - xx;
+				_point.y = destPoint.y - yy;
+				buffer.copyPixels(source, rect, _point, alphaBitmapData, alphaPoint, mergeAlpha);
 				xx += _maxWidth;
 				if (xx >= _width)
 				{
@@ -224,13 +252,33 @@
 			}
 		}
 		
+		public function getPixel (x:int, y:int):uint
+		{
+			var buffer:BitmapData = _buffers[_ref.getPixel(x / _maxWidth, y / _maxHeight)];
+			
+			x %= _maxWidth;
+			y %= _maxHeight;
+			
+			return buffer.getPixel32(x, y);
+		}
+		
+		public function setPixel (x:int, y:int, color:uint):void
+		{
+			var buffer:BitmapData = _buffers[_ref.getPixel(x / _maxWidth, y / _maxHeight)];
+			
+			x %= _maxWidth;
+			y %= _maxHeight;
+			
+			buffer.setPixel32(x, y, color);
+		}
+		
 		/**
 		 * The tinted color of the Canvas. Use 0xFFFFFF to draw the it normally.
 		 */
 		public function get color():uint { return _color; }
 		public function set color(value:uint):void
 		{
-			value %= 0xFFFFFF;
+			value &= 0xFFFFFF;
 			if (_color == value) return;
 			_color = value;
 			if (_alpha == 1 && _color == 0xFFFFFF)
@@ -293,6 +341,7 @@
 		/** @private */ protected var _height:uint;
 		/** @private */ protected var _maxWidth:uint = 4000;
 		/** @private */ protected var _maxHeight:uint = 4000;
+		/** @private */ protected var _bitmap:Bitmap = new Bitmap;
 		
 		// Color tinting information.
 		/** @private */ private var _color:uint = 0xFFFFFF;

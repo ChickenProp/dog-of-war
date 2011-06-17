@@ -4,6 +4,7 @@
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
+	import flash.ui.Mouse;
 	import net.flashpunk.*;
 	
 	/**
@@ -21,6 +22,11 @@
 		 * The last key pressed.
 		 */
 		public static var lastKey:int;
+		
+		/**
+		 * The mouse cursor. Set to "hide" to hide the cursor.
+		 */
+		public static var mouseCursor:String;
 		
 		/**
 		 * If the mouse button is down.
@@ -111,6 +117,7 @@
 		{
 			if (input is String)
 			{
+				if (! _control[input]) return false;
 				var v:Vector.<int> = _control[input],
 					i:int = v.length;
 				while (i --)
@@ -136,6 +143,7 @@
 		{
 			if (input is String)
 			{
+				if (! _control[input]) return false;
 				var v:Vector.<int> = _control[input],
 					i:int = v.length;
 				while (i --)
@@ -156,6 +164,7 @@
 		{
 			if (input is String)
 			{
+				if (! _control[input]) return false;
 				var v:Vector.<int> = _control[input],
 					i:int = v.length;
 				while (i --)
@@ -200,6 +209,18 @@
 			_releaseNum = 0;
 			if (mousePressed) mousePressed = false;
 			if (mouseReleased) mouseReleased = false;
+			
+			if (mouseCursor) {
+				if (mouseCursor == "hide") {
+//					FP.console.log("hi");
+					Mouse.hide();
+					Mouse.cursor = "auto";
+				} else {
+					Mouse.show();
+					Mouse.cursor = mouseCursor;
+				}
+			}
+//			FP.console.log(mouseCursor);
 		}
 		
 		/**
@@ -222,14 +243,13 @@
 			
 			// update the keystring
 			if (code == Key.BACKSPACE) keyString = keyString.substring(0, keyString.length - 1);
-			else if ((code > 47 && code < 58) || (code > 64 && code < 91) || code == 32)
+			else if (e.charCode > 31 && e.charCode != 127) // 127 is delete
 			{
 				if (keyString.length > KEYSTRING_MAX) keyString = keyString.substring(1);
-				var char:String = String.fromCharCode(code);
-				if (e.shiftKey || Keyboard.capsLock) char = char.toLocaleUpperCase();
-				else char = char.toLocaleLowerCase();
-				keyString += char;
+				keyString += String.fromCharCode(e.charCode);
 			}
+			
+			if (code < 0 || code > 255) return;
 			
 			// update the keystate
 			if (!_key[code])
@@ -245,6 +265,9 @@
 		{
 			// get the keycode and update the keystate
 			var code:int = e.keyCode;
+			
+			if (code < 0 || code > 255) return;
+			
 			if (_key[code])
 			{
 				_key[code] = false;

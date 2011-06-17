@@ -19,13 +19,17 @@
 		/**
 		 * Creates a sound effect from an embedded source. Store a reference to
 		 * this object so that you can play the sound using play() or loop().
-		 * @param	source		The embedded sound class to use.
+		 * @param	source		The embedded sound class to use or a Sound object.
 		 * @param	complete	Optional callback function for when the sound finishes playing.
 		 */
-		public function Sfx(source:Class, complete:Function = null) 
+		public function Sfx(source:*, complete:Function = null) 
 		{
-			_sound = _sounds[source];
-			if (!_sound) _sound = _sounds[source] = new source;
+			if (source is Class) {
+				_sound = _sounds[source];
+				if (!_sound) _sound = _sounds[source] = new source;
+			}
+			else if (source is Sound) _sound = source;
+			else throw new Error("Sfx source needs to be of type Class or Sound");
 			this.complete = complete;
 		}
 		
@@ -40,7 +44,7 @@
 			_vol = _transform.volume = vol < 0 ? 0 : vol;
 			_pan = _transform.pan = pan < -1 ? -1 : (pan > 1 ? 1 : pan);
 			_channel = _sound.play(0, 0, _transform);
-			_channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
+			if (_channel) _channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
 			_looping = false;
 			_position = 0;
 		}
@@ -76,7 +80,7 @@
 		public function resume():void
 		{
 			_channel = _sound.play(_position, 0, _transform);
-			_channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
+			if (_channel) _channel.addEventListener(Event.SOUND_COMPLETE, onComplete);
 			_position = 0;
 		}
 		
