@@ -1,4 +1,6 @@
 package {
+	import flash.events.IMEEvent;
+	import flash.geom.Point;
 	import net.flashpunk.*;
 	import net.flashpunk.graphics.*;
 	import net.flashpunk.utils.*;
@@ -7,8 +9,12 @@ package {
 	{
 		[Embed(source = '../content/sprites/plane.png')]
 		private const PLANE:Class;
+		[Embed(source = '../content/sprites/live.png')]
+		private const LIVE:Class;
+		private const lifeIcon:Image = new Image(LIVE);
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
+		public var lives:int = 3;
 		
 		public function Player () 
 		{
@@ -56,6 +62,10 @@ package {
 
 		override public function render () : void {
 			trail.draw();
+			for (var x:int = 0; x < lives; x++)
+			{
+				lifeIcon.render(FP.buffer, new Point( 10 + 45 * x, 480 - 10 - 45), FP.camera);
+			}
 			super.render();
 		}
 	}
