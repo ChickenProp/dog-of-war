@@ -29,6 +29,7 @@ package {
 			type = "player";
 			x = 0;
 			y = 0;
+			layer = 100;
 		}
 			
 		override public function update () : void 
@@ -60,6 +61,10 @@ package {
 				if (lives < 1)
 					{}
 			}
+			
+			GameManager.distanceTravelled++;
+			
+			//FP.console.log(GameManager.distanceTravelled);
 		}
 		
 		private function AddToMotionPath() : void
