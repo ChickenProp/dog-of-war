@@ -56,7 +56,7 @@ package {
 				lives--;
 				e.x = -1; 	//Will destroy and create new
 				if (lives < 1)
-					
+					{}
 			}
 		}
 		
