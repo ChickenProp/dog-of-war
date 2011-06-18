@@ -22,6 +22,9 @@ public class Game extends World {
 		hud = new HUD(this);
 		mainEmitter = new EmitterExtra();
 
+		add(new Background());
+		add(new Cloud());
+
 		add(new Player());
 		for (var x:int = 0; x < 10; x++)
 		{
@@ -56,6 +59,12 @@ public class Game extends World {
 				else
 					add(new BouncingEnemy());
 			}
+		}
+		var c:int = FP.world.typeCount("cloud");
+		while (c < 3)
+		{
+			add(new Cloud());
+			c++;
 		}
 	}
 	

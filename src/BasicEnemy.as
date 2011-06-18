@@ -21,11 +21,12 @@ package
 		{
 			graphic = Image.createRect(5, 5, 0xFF6600);
 			(graphic as Image).centerOO();
-			x = 610 + FP.rand(100);
+			x = 640 + FP.rand(100);
 			y = FP.rand(480);
 			setHitbox(5, 5);
 			type = "enemy";
 			id = count++;
+			layer = 100;
 		}
 
 		override public function update () : void {

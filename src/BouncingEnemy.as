@@ -17,6 +17,7 @@ package
 			graphic = Image.createRect(5, 5, 0x7CFC00);
 			(graphic as Image).centerOO();
 			moveAngle = FP.rand(160) + 10;
+			layer = 100;
 		}
 		
 		override public function update () : void 
