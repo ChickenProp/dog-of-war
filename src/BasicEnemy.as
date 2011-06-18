@@ -20,6 +20,7 @@ package
 			(graphic as Image).centerOO();
 			x = 610 + FP.rand(100);
 			y = FP.rand(480);
+			setHitbox(5, 5);
 			type = "enemy";
 			id = count++;
 		}

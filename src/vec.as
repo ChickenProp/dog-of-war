@@ -38,6 +38,23 @@ public class vec {
 			return new vec(x/l, y/l);
 	}
 
+	public function setNormalize() : vec {
+		var l:Number = length;
+		
+		if (l == 0)
+		{
+			x = 0;
+			y = 0;
+		}
+		else
+		{
+			x = x/l;
+			y = y/l;
+		}
+		
+		return this;
+	}
+
 	public function toString () : String {
 		return "(" + x + ", " + y + ")";
 	}
