@@ -27,6 +27,14 @@ public class Trail {
 	}
 
 	public function cut(seg:int) : void {
+		for (var i:int = 0; i < seg; i++) {
+			var s:TrailSegment = segments[i];
+			(FP.world as Game).mainEmitter.CreateParticles(
+			        (s.isLight() ? "lightFabric1" : "darkFabric1"),
+				s.start.x, s.start.y
+			        );
+		}
+
 		var inter:vec = segments[seg].intersection(segments[segments.length - 1]);
 
 		segments = segments.slice(seg);

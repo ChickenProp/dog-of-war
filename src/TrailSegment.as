@@ -21,12 +21,14 @@ public class TrailSegment {
 		v[1] = new Point(start.x + 10, start.y);
 		v[2] = new Point(end.x + 10, end.y);
 		v[3] = new Point(end.x, end.y);
-		if (end.y > start.y)
-			polygon(v, 0xB22222);
-		else
-			polygon(v, 0xFF2400);
+
+		polygon(v, isLight() ? 0xFF2400 : 0xB22222);
 		Draw.linePlus(start.x, start.y, end.x, end.y, 0x000000);
 		Draw.linePlus(start.x+10, start.y, end.x+10, end.y, 0x000000);
+	}
+
+	public function isLight() : Boolean {
+		return end.y <= start.y;
 	}
 
 	public function polygon (points:Vector.<Point>, color:uint = 0xFFFFFF, alpha:Number = 1, filled:Boolean = true, thickness:Number = 0):void
