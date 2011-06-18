@@ -24,6 +24,11 @@ package {
 		private const HIT:Class;
 		public var hit:Sfx = new Sfx(HIT);
 		
+		//canon.mp3 from man - thefreesoundproject
+		[Embed(source = '../content/sounds/canon.mp3')]
+		private const DEATH:Class;
+		public var death:Sfx = new Sfx(DEATH);
+		
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
 		public var dead:Boolean = true;
@@ -86,6 +91,7 @@ package {
 							}
 						}
 						dead = true;
+						death.play();
 						trail.empty();
 					}
 				}
