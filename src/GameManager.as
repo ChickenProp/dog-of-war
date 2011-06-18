@@ -1,5 +1,7 @@
 package
 {
+	import net.flashpunk.FP;
+
 	public class GameManager
 	{
 		static public var playtime:Number = 0;
@@ -32,6 +34,7 @@ package
 				visibleScore = score;
 			}
 			
+			//FP.log(distanceTravelled);
 		}
 	}
 }

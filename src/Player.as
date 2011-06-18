@@ -61,10 +61,6 @@ package {
 				if (lives < 1)
 					{}
 			}
-			
-			GameManager.distanceTravelled++;
-			
-			//FP.console.log(GameManager.distanceTravelled);
 		}
 		
 		private function AddToMotionPath() : void

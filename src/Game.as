@@ -37,6 +37,7 @@ public class Game extends World {
 		frameNumber++;
 
 		GameManager.update();
+		hud.update();
 		
 		// Hiding the mouse cursor doesn't seem to work (in firefox and
 		// chrome) before receiving mouse events, so we do it here.
