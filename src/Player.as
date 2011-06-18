@@ -20,6 +20,8 @@ package {
 		private var motionPath:Array = new Array();
 		private var maxSpeed:Number = 15;
 		
+		private var numberInCombo:int = 0;
+		
 		public function Player () 
 		{
 			sprite = new Image(PLANE);
@@ -161,12 +163,22 @@ package {
 		public function closeLoop(seg:int) : void {
 			var enemies:Array = [];
 			world.getType("enemy", enemies);
+			
+			var enemiesToDestroy:Array = new Array();
 
 			for (var i:int = 0; i < enemies.length; i++) {
 				var e:BasicEnemy = enemies[i] as BasicEnemy;
 				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-					FP.world.remove(e);
+					//FP.world.remove(e);
+					enemiesToDestroy.push(e);
 				}
+			}
+			
+			numberInCombo = enemiesToDestroy.length;
+			
+			for each(var tempEnemy:BasicEnemy in enemiesToDestroy)
+			{
+				tempEnemy.KilledByPlayer(numberInCombo);
 			}
 
 		}

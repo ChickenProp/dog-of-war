@@ -10,7 +10,7 @@ package
 		
 		static public var score:int = 0;
 		static public var visibleScore:int = 0;
-		static public var scoreCountUpSpeed:int = 3;
+		static public var scoreCountUpSpeed:int = 25;
 		
 		static public var lives:int = 3;
 		

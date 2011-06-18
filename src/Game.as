@@ -15,10 +15,13 @@ public class Game extends World {
 	
 	//public var gameManager:GameManager = new GameManager();
 	public var hud:HUD;
+	public var mainEmitter:EmitterExtra;
 
 	public function Game () {
 		FP.watch("id");
 		hud = new HUD(this);
+		mainEmitter = new EmitterExtra();
+
 		add(new Player());
 		for (var x:int = 0; x < 10; x++)
 		{
@@ -36,6 +39,7 @@ public class Game extends World {
 
 		GameManager.update();
 		hud.update();
+		mainEmitter.update();
 		
 		// Hiding the mouse cursor doesn't seem to work (in firefox and
 		// chrome) before receiving mouse events, so we do it here.
@@ -60,6 +64,7 @@ public class Game extends World {
 		super.render();
 		cursor.render(FP.buffer, new Point(Input.mouseX - cursor.width / 2, Input.mouseY - cursor.height / 2), FP.camera);
 		hud.render();
+		mainEmitter.render(FP.buffer, new Point(), FP.camera);
 	}
 }
 }
