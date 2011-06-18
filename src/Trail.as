@@ -51,15 +51,16 @@ public class Trail {
 	}
 	
 	// Check whether the final section intersects any other section. Returns
-	// the index of that section, or -1 if none.
+	// the index of that section, or -1 if none. Don't check the last few
+	// segments to avoid silly collisions.
 	public function checkCollision () : int {
 		if (segments.length < 3)
 			return -1;
 
-		var v1:vec = segments[segments.length-1].start;
-		var v2:vec = segments[segments.length-1].end;
+		var v1:vec = segments[numSegments-1].start;
+		var v2:vec = segments[numSegments-1].end;
 
-		for (var i:int = 0; i < segments.length - 2; i++) {
+		for (var i:int = 0; i < numSegments - 5; i++) {
 			var v3:vec = segments[i].start;
 			var v4:vec = segments[i].end;
 			if (vec.intersecting(v1, v2, v3, v4))
@@ -110,6 +111,8 @@ public class Trail {
 	{
 		segments = new Vector.<TrailSegment>();
 	}
+
+	public function get numSegments():int { return segments.length; }
 }
 }
 
