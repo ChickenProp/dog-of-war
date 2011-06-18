@@ -11,7 +11,7 @@ package
 	public class EmitterExtra extends Emitter
 	{
 		
-		[Embed(source = '../content/sprites/particles.png')]
+		[Embed(source = '../content/sprites/particles2.png')]
 				private const PARTICLES:Class;
 		
 		private var textObjects:Array = new Array();
@@ -28,6 +28,7 @@ package
 			newType("star_small", [1]);
 			setAlpha("star_small", 1, 0);
 			setGravity("star_small", 3);
+			setMotion("star_small", 0, 150, 1, 360, 0);
 			
 		}
 		
@@ -63,6 +64,7 @@ package
 		override public function render(target:BitmapData, point:Point, camera:Point):void
 		{
 			super.render(target,point,camera);
+			
 			
 			
 		}
