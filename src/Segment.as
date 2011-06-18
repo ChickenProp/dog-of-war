@@ -31,6 +31,10 @@ public class Segment {
 		return end.y <= start.y;
 	}
 
+	public function length () : Number {
+		return start.sub(end).length;
+	}
+
 	public function polygon (points:Vector.<Point>, color:uint = 0xFFFFFF, alpha:Number = 1, filled:Boolean = true, thickness:Number = 0):void
 	{
 		color = color & tint;
