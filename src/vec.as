@@ -21,6 +21,10 @@ public class vec {
 		return this;
 	}
 
+	public function sub(v:vec):vec {
+		return new vec(x - v.x, y - v.y);
+	}
+
 	public function mul(n:Number):vec {
 		return new vec(x * n, y * n);
 	}
