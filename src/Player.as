@@ -15,7 +15,7 @@ package {
 		private const lifeIcon:Image = new Image(LIVE);
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
-		public var dead:Boolean = false;
+		public var dead:Boolean = true;
 		
 		private var motionPath:Array = new Array();
 		private var maxSpeed:Number = 15;
