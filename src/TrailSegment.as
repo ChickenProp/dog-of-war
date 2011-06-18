@@ -59,5 +59,9 @@ public class TrailSegment {
 		
 		FP.buffer.draw(FP.sprite, null, null);
 	}
+
+	public function intersection (other:TrailSegment) : vec {
+		return vec.intersection(start, end, other.start, other.end);
+	}
 }
 }
