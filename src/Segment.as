@@ -5,12 +5,12 @@ import net.flashpunk.*;
 import net.flashpunk.utils.*;
 import net.flashpunk.debug.*;
 
-public class TrailSegment {
+public class Segment {
 	public var start:vec;
 	public var end:vec;
 	public var tint:uint = 0xFFFFFF;
 
-	public function TrailSegment(st:vec, en:vec) {
+	public function Segment(st:vec, en:vec) {
 		start = st;
 		end = en;
 	}
@@ -62,8 +62,12 @@ public class TrailSegment {
 		FP.buffer.draw(FP.sprite, null, null);
 	}
 
-	public function intersection (other:TrailSegment) : vec {
+	public function intersection (other:Segment) : vec {
 		return vec.intersection(start, end, other.start, other.end);
+	}
+
+	public function intersecting (other:Segment) : Boolean {
+		return vec.intersecting(start, end, other.start, other.end);
 	}
 }
 }
