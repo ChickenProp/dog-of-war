@@ -3,6 +3,7 @@ package
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Emitter;
 	import net.flashpunk.graphics.Particle;
 	import net.flashpunk.graphics.Text;
@@ -41,7 +42,16 @@ package
 			{
 				myText.update();
 			
+				if(myText.toDelete)
+				{
+					oldTextObjects.push(myText);
+				}
 				
+			}
+			
+			for each(var textToDelete:TextParticle in oldTextObjects)
+			{
+				textObjects.splice(textToDelete);
 			}
 		}
 		
@@ -65,6 +75,12 @@ package
 		{
 			super.render(target,point,camera);
 			
+			for each(var myText:TextParticle in textObjects)
+			{
+				
+				myText.render(FP.buffer, new Point(), FP.camera);
+				FP.log("RENDERS " + myText.text);
+			}
 			
 			
 		}

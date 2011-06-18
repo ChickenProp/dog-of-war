@@ -41,6 +41,7 @@ package
 			GameManager.score += pointsValue * comboSize;
 			
 			ExplodeWithParticles();
+			GenerateScoreParticle(pointsValue * comboSize);
 			
 			Destroy();
 		}
@@ -61,6 +62,21 @@ package
 				}
 			}
 		
+		}
+		
+		public function GenerateScoreParticle(forScore:int) :void
+		{
+			
+			if(FP.world is Game)
+			{
+				var tempGame:Game = FP.world as Game;
+				var tempString:String = forScore.toString();
+				
+				var newParticle:TextParticle = tempGame.mainEmitter.AddTextObject(tempString, x, y, 0, -2);
+				newParticle.color = 0xEE8800;
+
+				
+			}
 		}
 		
 		public function Destroy() : void

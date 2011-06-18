@@ -8,6 +8,7 @@ package
 		public var movY:Number = 0;
 		public var maxTime:Number = 60;
 		public var timer:Number = 0;
+		public var fadeStartTime:Number = 30;
 		
 		public var toDelete:Boolean = false;
 		
@@ -17,6 +18,8 @@ package
 			
 			movX = myMovX;
 			movY = myMovY;
+			
+			//color = 0xFF0000;
 		}
 		
 		public override function update() : void
@@ -26,11 +29,17 @@ package
 			x += movX;
 			y += movY;
 			
+			if(timer > fadeStartTime)
+			{
+				alpha = 1 - ((timer - fadeStartTime)/(maxTime - fadeStartTime));
+			}
+			
 			timer ++;
 			if(timer >= maxTime)
 			{
 				toDelete = true;
 			}
 		}
+		
 	}
 }
