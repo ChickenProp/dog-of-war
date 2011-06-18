@@ -39,22 +39,22 @@ package
 			newType("darkFabric1", [4]);
 			setAlpha("darkFabric1", 1, 0);
 			setGravity("darkFabric1", 1);
-			setMotion("darkFabric1", 0, 50, 0.2, 360, 0);
+			setMotion("darkFabric1", 0, 50, 1.5, 360, 0);
 			
 			newType("darkFabric2", [5]);
 			setAlpha("darkFabric2", 1, 0);
 			setGravity("darkFabric2", 1);
-			setMotion("darkFabric2", 0, 50, 0.2, 360, 0);
+			setMotion("darkFabric2", 0, 50, 1.5, 360, 0);
 			
 			newType("lightFabric1", [6]);
 			setAlpha("lightFabric1", 1, 0);
 			setGravity("lightFabric1", 1);
-			setMotion("lightFabric1", 0, 50, 0.2, 360, 0);
+			setMotion("lightFabric1", 0, 50, 1.5, 360, 0);
 			
 			newType("lightFabric2", [8]);
 			setAlpha("lightFabric2", 1, 0);
 			setGravity("lightFabric2", 1);
-			setMotion("lightFabric2", 0, 50, 0.2, 360, 0);
+			setMotion("lightFabric2", 0, 50, 1.5, 360, 0);
 		}
 		
 		override public function update() :void

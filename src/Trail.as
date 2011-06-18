@@ -30,7 +30,9 @@ public class Trail {
 		for (var i:int = 0; i < numSegments - 1; i++) {
 			var s:Segment = segments[i];
 			(FP.world as Game).mainEmitter.CreateParticles(
-			        (s.isLight() ? "lightFabric1" : "darkFabric1"),
+			        (s.isLight() ? 
+						((Math.random() < 0.5)? "lightFabric1" : "lightFabric2") : 
+						((Math.random() < 0.5)? "darkFabric1" : "darkFabric2")),
 				s.start.x, s.start.y
 			        );
 		}
@@ -45,26 +47,31 @@ public class Trail {
 		if (segments.length < 2)
 			return;
 
+		FP.sprite.graphics.clear();
+
 		for (var i:int = 0; i < segments.length; i++) {
 			segments[i].draw();
 		}
+
+		FP.buffer.draw(FP.sprite, null, null);
 	}
 	
 	// Check whether the final section intersects any other section. Returns
-	// the index of that section, or -1 if none. Don't check the last few
-	// segments to avoid silly collisions.
+	// the index of that section, or -1 if none. If the loop would have a
+	// circumference of less than 50 pixels, ignore it.
 	public function checkCollision () : int {
 		if (segments.length < 3)
 			return -1;
 
-		var v1:vec = segments[numSegments-1].start;
-		var v2:vec = segments[numSegments-1].end;
+		var end:Segment = segments[numSegments-1];
 
-		for (var i:int = 0; i < numSegments - 5; i++) {
-			var v3:vec = segments[i].start;
-			var v4:vec = segments[i].end;
-			if (vec.intersecting(v1, v2, v3, v4))
-				return i;
+		// Don't check the penultimate segment, since we're always
+		// intersecting that.
+		for (var i:int = 0; i < numSegments - 2; i++) {
+			if (end.intersecting(segments[i])) {
+				var len:Number = lengthFrom(i+1) + new Segment(end.intersection(segments[i]), segments[i].end).length();
+				return (len > 50 ? i : -1);
+			}
 		}
 
 		return -1;
@@ -113,6 +120,13 @@ public class Trail {
 	public function empty():void
 	{
 		segments = new Vector.<Segment>();
+	}
+
+	public function lengthFrom(i:int) : Number {
+		var l:int = 0;
+		for (var j:int = i; j < segments.length; j++)
+			l += segments[j].length();
+		return l;
 	}
 
 	public function get numSegments():int { return segments.length; }

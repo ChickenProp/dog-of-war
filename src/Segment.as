@@ -15,51 +15,44 @@ public class Segment {
 		end = en;
 	}
 
+	// This only draws to FP.sprite.graphics, not to FP.buffer.
 	public function draw () : void {
-		var v:Vector.<Point> = new Vector.<Point>(4);
-		v[0] = new Point(start.x, start.y);
-		v[1] = new Point(start.x + 10, start.y);
-		v[2] = new Point(end.x + 10, end.y);
-		v[3] = new Point(end.x, end.y);
-
-		polygon(v, isLight() ? 0xFF2400 : 0xB22222);
-		Draw.linePlus(start.x, start.y, end.x, end.y, 0x000000);
-		Draw.linePlus(start.x+10, start.y, end.x+10, end.y, 0x000000);
+		var off:vec = new vec(10, 0);
+		quad(this, new Segment(this.start.add(off), this.end.add(off)),
+		     isLight() ? 0xFF2400 : 0xB22222 );
 	}
 
 	public function isLight() : Boolean {
 		return end.y <= start.y;
 	}
 
-	public function polygon (points:Vector.<Point>, color:uint = 0xFFFFFF, alpha:Number = 1, filled:Boolean = true, thickness:Number = 0):void
-	{
+	public function length () : Number {
+		return start.sub(end).length;
+	}
+
+	public function quad (l1:Segment, l2:Segment, color:uint) : void {
 		color = color & tint;
-	
+		var thickness:Number = 1;
+		var alpha:Number = 1;
+
 		var g:Graphics = FP.sprite.graphics;
-		var x:Number;
-		var y:Number;
-		
-		g.clear();
 
-		if (filled) {
-			g.beginFill(color, alpha);
-		} else {
-			g.lineStyle(thickness, color, alpha);
-		}
+		g.lineStyle();
+		g.beginFill(color, alpha);
 
-		g.moveTo(points[0].x, points[0].y);
-		
-		for (var i:int = 1; i < points.length; i++) {
-			g.lineTo(points[i].x, points[i].y);
-		}
-		
-		if (filled) {
-			g.endFill();
-		} else {
-			g.lineTo(points[0].x, points[0].y);
-		}
-		
-		FP.buffer.draw(FP.sprite, null, null);
+		g.moveTo(l1.start.x, l1.start.y);
+		g.lineTo(l1.end.x, l1.end.y);
+		g.lineTo(l2.end.x, l2.end.y);
+		g.lineTo(l2.start.x, l2.start.y);
+
+		g.endFill();
+
+		g.lineStyle(thickness, 0x000000, alpha);
+
+		g.moveTo(l1.start.x, l1.start.y);
+		g.lineTo(l1.end.x, l1.end.y);
+		g.moveTo(l2.start.x, l2.start.y);
+		g.lineTo(l2.end.x, l2.end.y);
 	}
 
 	public function intersection (other:Segment) : vec {
