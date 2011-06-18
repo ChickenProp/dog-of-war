@@ -30,7 +30,9 @@ public class Trail {
 		for (var i:int = 0; i < numSegments - 1; i++) {
 			var s:Segment = segments[i];
 			(FP.world as Game).mainEmitter.CreateParticles(
-			        (s.isLight() ? "lightFabric1" : "darkFabric1"),
+			        (s.isLight() ? 
+						((Math.random() < 0.5)? "lightFabric1" : "lightFabric2") : 
+						((Math.random() < 0.5)? "darkFabric1" : "darkFabric2")),
 				s.start.x, s.start.y
 			        );
 		}
