@@ -1,6 +1,7 @@
 package {
 	import flash.events.IMEEvent;
 	import flash.geom.Point;
+	
 	import net.flashpunk.*;
 	import net.flashpunk.graphics.*;
 	import net.flashpunk.utils.*;
@@ -24,6 +25,8 @@ package {
 			sprite = new Image(PLANE);
 			sprite.centerOrigin();
 			graphic = sprite;
+			setHitbox(32, 16);
+			type = "player";
 			x = 0;
 			y = 0;
 		}
@@ -47,7 +50,16 @@ package {
 
 			trail.addxy(x,y);
 			
-			
+			var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
+
+			if (e)
+			{
+				//lives--;
+				GameManager.lives--;
+				e.x = -1; 	//Will destroy and create new
+				if (lives < 1)
+					{}
+			}
 		}
 		
 		private function AddToMotionPath() : void
@@ -78,8 +90,6 @@ package {
 					y = nextPoint.y;
 					
 					motionPath.splice(motionPath[0]);
-					
-					FP.log("temp less");
 				}
 				else
 				{
@@ -89,8 +99,6 @@ package {
 					
 					x += tempDirection.x;
 					y += tempDirection.y;
-					
-					FP.log("temp more");
 				}
 				
 			}
@@ -109,8 +117,6 @@ package {
 				y = nextPoint.y;
 				
 				motionPath.splice(motionPath[0]);
-				
-				FP.log("temp less");
 			}
 			else
 			{
@@ -120,8 +126,6 @@ package {
 				
 				x += tempDirection.x;
 				y += tempDirection.y;
-				
-				FP.log("temp more");
 			}
 		}
 		
@@ -156,10 +160,11 @@ package {
 
 		override public function render () : void {
 			trail.draw();
-			for (var x:int = 0; x < lives; x++)
+			//note - Ali moved the life drawing to HUD.as
+			/*for (var x:int = 0; x < lives; x++)
 			{
 				lifeIcon.render(FP.buffer, new Point( 10 + 45 * x, 480 - 10 - 45), FP.camera);
-			}
+			}*/
 			super.render();
 		}
 	}
