@@ -78,30 +78,33 @@ public class Trail {
 	public function contains (point:vec, start:int, end:int) : Boolean {
 		var wind:int = 0;
 
+		var top:vec = new vec(point.x, 0);
+		var ray:TrailSegment = new TrailSegment(point, top);
+		
 		var v1:vec = point;
 		var v2:vec = new vec(point.x, 0);
 
 		var lastChange:int = 0;
 
 		for (var i:int = start; i <= end; i++) {
-			var v3:vec = segments[i].start;
-			var v4:vec = segments[i].end;
+			var edge:TrailSegment = segments[i];
 
 			// The start and end segments will be partly outside the
 			// loop, so only consider the relevant parts of them.
 			if (i == start)
-				v3 = vec.intersection(v3, v4, segments[end].start, segments[end].end);
+				edge = new TrailSegment(edge.intersection(segments[end]), edge.end);
 			else if (i == end)
-				v4 = vec.intersection(v3, v4, segments[start].start, segments[start].end);
+				edge = new TrailSegment(edge.start, edge.intersection(segments[start]));
 
-			if (vec.intersecting(v1, v2, v3, v4)) {
-				var change:int = (v3.x < v4.x ? 1 : -1);
-				if (change == lastChange) // phantom
-					continue;
+			if (! ray.intersecting(edge))
+				continue;
+			
+			var change:int = (edge.start.x < edge.end.x ? 1 : -1);
+			if (change == lastChange) // phantom
+				continue;
 
-				wind += change;
-				lastChange = change;
-			}
+			wind += change;
+			lastChange = change;
 		}
 
 		return wind != 0;

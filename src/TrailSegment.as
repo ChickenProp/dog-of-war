@@ -65,5 +65,9 @@ public class TrailSegment {
 	public function intersection (other:TrailSegment) : vec {
 		return vec.intersection(start, end, other.start, other.end);
 	}
+
+	public function intersecting (other:TrailSegment) : Boolean {
+		return vec.intersecting(start, end, other.start, other.end);
+	}
 }
 }
