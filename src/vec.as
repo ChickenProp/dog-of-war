@@ -37,6 +37,23 @@ public class vec {
 		else
 			return new vec(x/l, y/l);
 	}
+	
+	public function setNormalize() : vec {
+		var l:Number = length;
+		
+		if (l == 0)
+		{
+			x = 0;
+			y = 0;
+		}
+		else
+		{
+			x = x/l;
+			y = y/l;
+		}
+		
+		return this;
+	}
 }
 
 }

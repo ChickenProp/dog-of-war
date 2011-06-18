@@ -10,6 +10,9 @@ package {
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
 		
+		private var motionPath:Array = new Array();
+		private var maxSpeed:Number = 15;
+		
 		public function Player () 
 		{
 			sprite = new Image(PLANE);
@@ -22,10 +25,105 @@ package {
 		override public function update () : void 
 		{		
 			super.update();
+
+			/*x = Input.mouseX;
+			y = Input.mouseY;*/
+			
+			var oldX:Number = x;
+			var oldY:Number = y;
+			
+			//AddToMotionPath();
+			//MoveToMotionPath();
+			
+			MoveToCursor();			
+			
+			AngleSprite(oldX, oldY, x, y);
+
+			trail.addxy(x,y);
+			
+			
+		}
+		
+		private function AddToMotionPath() : void
+		{
+			var newPoint:vec = new vec(Input.mouseX, Input.mouseY);
+			
+			motionPath.push(newPoint);
+		}
+		
+		private function MoveToMotionPath() : void
+		{
+			var nextPoint:vec;
+			
+			if(motionPath.length > 0)
+			{
+				nextPoint = motionPath[0];
+			}
+			
+			if (nextPoint)
+			{
+				//move to the point
+				
+				var tempDistance:Number = MathExtra.Pythagoras(x, y, nextPoint.x, nextPoint.y);
+				
+				if(tempDistance <= maxSpeed)
+				{
+					x = nextPoint.x;
+					y = nextPoint.y;
+					
+					motionPath.splice(motionPath[0]);
+					
+					FP.log("temp less");
+				}
+				else
+				{
+					var tempDirection:vec = new vec(nextPoint.x - x, nextPoint.y - y);
+					tempDirection.setNormalize();
+					tempDirection.setmul(maxSpeed);
+					
+					x += tempDirection.x;
+					y += tempDirection.y;
+					
+					FP.log("temp more");
+				}
+				
+			}
+			
+		}
+		
+		private function MoveToCursor() : void
+		{
+			var nextPoint:vec = new vec(Input.mouseX, Input.mouseY);
+			
+			var tempDistance:Number = MathExtra.Pythagoras(x, y, nextPoint.x, nextPoint.y);
+			
+			if(tempDistance <= maxSpeed)
+			{
+				x = nextPoint.x;
+				y = nextPoint.y;
+				
+				motionPath.splice(motionPath[0]);
+				
+				FP.log("temp less");
+			}
+			else
+			{
+				var tempDirection:vec = new vec(nextPoint.x - x, nextPoint.y - y);
+				tempDirection.setNormalize();
+				tempDirection.setmul(maxSpeed);
+				
+				x += tempDirection.x;
+				y += tempDirection.y;
+				
+				FP.log("temp more");
+			}
+		}
+		
+		private function AngleSprite(oldX:Number, oldY:Number, newX:Number, newY:Number) :void{
 			
 			var v:Vector.<Number> = new Vector.<Number>(2);
-			v[0] = Input.mouseX - x;
-			v[1] = Input.mouseY - y;
+			v[0] = newX - oldX;
+			v[1] = newY - oldY;
 			
 			var l:Number = Math.sqrt(v[0] * v[0] + v[1] * v[1]);
 			var targetRot:Number = 0;
@@ -42,10 +140,6 @@ package {
 			var angleDiff:Number = FP.angleDiff(sprite.angle, targetRot);
 			sprite.angle += angleDiff * ((l < 5) ? 0.2 : 0.4);
 			
-			x = Input.mouseX;
-			y = Input.mouseY;
-
-			trail.addxy(x,y);
 		}
 
 		override public function render () : void {
