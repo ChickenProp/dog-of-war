@@ -24,6 +24,7 @@ package
 			x = 640 + FP.rand(100);
 			y = FP.rand(480);
 			setHitbox(5, 5);
+			centerOrigin();
 			type = "enemy";
 			id = count++;
 			layer = 100;

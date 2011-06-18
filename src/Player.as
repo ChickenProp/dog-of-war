@@ -39,6 +39,7 @@ package {
 			x = 0;
 			y = 0;
 			layer = 100;
+			centerOrigin();
 		}
 			
 		override public function update () : void 
