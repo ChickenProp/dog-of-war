@@ -35,7 +35,7 @@ public class Trail {
 			        );
 		}
 
-		var inter:vec = segments[seg].intersection(segments[segments.length - 1]);
+		var inter:vec = segments[seg].intersection(segments[numSegments - 1]);
 
 		segments = segments.slice(-1);
 		segments[0].start = inter;
