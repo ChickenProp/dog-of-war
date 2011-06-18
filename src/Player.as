@@ -19,6 +19,11 @@ package {
 		private const TING:Class;
 		public var ting:Sfx = new Sfx(TING);
 		
+		//hit-28.mp3 from adcbicycle - thefreesoundproject
+		[Embed(source = '../content/sounds/hit-28.mp3')]
+		private const HIT:Class;
+		public var hit:Sfx = new Sfx(HIT);
+		
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
 		public var dead:Boolean = true;
@@ -63,7 +68,7 @@ package {
 
 				if (e)
 				{
-					//lives--;
+					hit.play(0.4);
 					GameManager.lives--;
 					e.x = -1; 	//Will destroy and create new
 					if (GameManager.lives < 1)
