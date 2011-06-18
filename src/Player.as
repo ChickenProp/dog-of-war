@@ -179,10 +179,31 @@ package {
 			{
 				tempEnemy.KilledByPlayer(numberInCombo);
 			}
+			
+			if(numberInCombo > 0)
+			{
+				MakeComboText(numberInCombo);
+			}
 
 			trail.cut(seg);
 		}
 
+		private function MakeComboText(forNumber:int):void
+		{
+
+				if(FP.world is Game)
+				{
+					var tempGame:Game = FP.world as Game;
+					var tempString:String = forNumber.toString() + "x COMBO"
+					
+					var newParticle:TextParticle = tempGame.mainEmitter.AddTextObject(tempString, x, y, 0, -3);
+					newParticle.color = 0xFF0000;	
+					
+					//FP.log("combo " + forNumber.toString());
+				}
+			
+		}
+		
 		override public function render () : void {
 			trail.draw();
 			//note - Ali moved the life drawing to HUD.as
