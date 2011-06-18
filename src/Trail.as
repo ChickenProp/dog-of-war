@@ -53,5 +53,23 @@ public class Trail {
 
 		return -1;
 	}
+
+	// This assumes the segments from 'start' to 'end' form a closed loop.
+	public function contains (point:vec, start:int, end:int) : Boolean {
+		var wind:int = 0;
+
+		var v1:vec = point;
+		var v2:vec = new vec(point.x, 0);
+
+		for (var i:int = start; i <= end; i++) {
+			var v3:vec = segments[i].start;
+			var v4:vec = segments[i].end;
+
+			if (vec.intersecting(v1, v2, v3, v4))
+				wind += (v3.x < v4.x ? 1 : -1);
+		}
+
+		return wind != 0;
+	}
 }
 }

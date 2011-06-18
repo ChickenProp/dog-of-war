@@ -49,8 +49,20 @@ package {
 
 			var col:int = trail.checkCollision();
 			if (col > -1) {
-				trail.segments[col].tint = 0x0000FF;
-				trail.segments[trail.segments.length - 1].tint = 0x0000FF;
+				closeLoop(col);
+				for (var i:int = col; i < trail.segments.length; i++)
+					trail.segments[i].tint = 0x0000FF;
+			}
+		}
+
+		public function closeLoop(seg:int) : void {
+			var enemies:Array = [];
+			world.getType("enemy", enemies);
+
+			for (var i:int = 0; i < enemies.length; i++) {
+				var e:Entity = enemies[i];
+				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1))
+					FP.world.remove(e);
 			}
 		}
 
