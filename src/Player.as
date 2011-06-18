@@ -139,7 +139,13 @@ package {
 			
 			var angleDiff:Number = FP.angleDiff(sprite.angle, targetRot);
 			sprite.angle += angleDiff * ((l < 5) ? 0.2 : 0.4);
-			
+
+			var col:int = trail.checkCollision();
+			if (col > -1) {
+				trail.segments[col].tint = 0x0000FF;
+				trail.segments[trail.segments.length - 1].tint = 0x0000FF;
+			}
+
 		}
 
 		override public function render () : void {
