@@ -30,6 +30,11 @@ package
 			setGravity("star_small", 3);
 			setMotion("star_small", 0, 150, 1, 360, 0);
 			
+			newType("smoke", [3]);
+			setAlpha("smoke", 0.6, 0);
+			setGravity("smoke", 0);
+			setMotion("smoke", 90, 100, 2, 20);
+			
 		}
 		
 		override public function update() :void

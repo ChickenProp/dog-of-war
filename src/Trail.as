@@ -90,6 +90,11 @@ public class Trail {
 
 		return wind != 0;
 	}
+	
+	public function empty():void
+	{
+		segments = new Vector.<TrailSegment>();
+	}
 }
 }
 

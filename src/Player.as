@@ -15,10 +15,11 @@ package {
 		private const lifeIcon:Image = new Image(LIVE);
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
-		public var lives:int = 3;
+		public var dead:Boolean = false;
 		
 		private var motionPath:Array = new Array();
 		private var maxSpeed:Number = 15;
+		private var increase:Boolean = false;
 		
 		private var numberInCombo:int = 0;
 		
@@ -37,31 +38,64 @@ package {
 		override public function update () : void 
 		{		
 			super.update();
-
-			/*x = Input.mouseX;
-			y = Input.mouseY;*/
 			
 			var oldX:Number = x;
 			var oldY:Number = y;
-			
-			//AddToMotionPath();
-			//MoveToMotionPath();
 			
 			MoveToCursor();			
 			
 			AngleSprite(oldX, oldY, x, y);
 
-			trail.addxy(x,y);
-			
-			var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
-
-			if (e)
+			if (!dead)
 			{
-				//lives--;
-				GameManager.lives--;
-				e.x = -1; 	//Will destroy and create new
-				if (lives < 1)
-					{}
+				sprite.alpha = 1;
+				
+				trail.addxy(x,y);
+				
+				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
+
+				if (e)
+				{
+					//lives--;
+					GameManager.lives--;
+					e.x = -1; 	//Will destroy and create new
+					if (GameManager.lives < 1)
+					{
+						for (var i:int = 0; i < 10 ; i++)
+						{
+							if(FP.world is Game)
+							{
+								var tempGame:Game = FP.world as Game;
+								
+								tempGame.mainEmitter.CreateParticles(
+									"smoke",
+									x + (10 * Math.sin((Math.PI * 2 / 10) * i)),
+									y + (10 * Math.cos((Math.PI * 2 / 10) * i)));
+							}
+						}
+						dead = true;
+						trail.empty();
+					}
+				}
+			}
+			else
+			{
+				//blink and click to continue
+				if (!increase)
+					sprite.alpha -= 0.02;
+				if (increase)
+					sprite.alpha += 0.02;
+				if (sprite.alpha >= 1)
+					increase = false;
+				if (sprite.alpha <= 0)
+					increase = true;
+					
+				if (Input.mousePressed)
+				{
+					// The mouse button was just pressed this frame.
+					dead = false;
+					GameManager.reset();
+				}
 			}
 		}
 		
@@ -187,10 +221,6 @@ package {
 		override public function render () : void {
 			trail.draw();
 			//note - Ali moved the life drawing to HUD.as
-			/*for (var x:int = 0; x < lives; x++)
-			{
-				lifeIcon.render(FP.buffer, new Point( 10 + 45 * x, 480 - 10 - 45), FP.camera);
-			}*/
 			super.render();
 		}
 	}

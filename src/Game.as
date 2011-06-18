@@ -37,10 +37,18 @@ public class Game extends World {
 	
 	override public function update():void
 	{
-		super.update();
 		frameNumber++;
+		
+		var p:Array = [];
+		getClass(Player, p);
+		if (!p[0].dead)
+		{
+			super.update();
+			GameManager.update();
+		}
+		else
+			p[0].update();
 
-		GameManager.update();
 		hud.update();
 		mainEmitter.update();
 		

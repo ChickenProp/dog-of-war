@@ -19,6 +19,19 @@ package
 			
 		}
 		
+		static public function reset():void
+		{
+			playtime = 0;
+			distanceTravelled = 0;
+			travellingSpeed = 50;
+		
+			score = 0;
+			visibleScore = 0;
+			scoreCountUpSpeed = 25;
+			
+			lives = 3;
+		}
+		
 		static public function update():void
 		{
 			playtime += 1;
