@@ -20,9 +20,9 @@ package
 			movY = myMovY;
 			
 			//color = 0xFF0000;
-		}
+		} 
 		
-		public override function update() : void
+		override public function update() : void
 		{
 			super.update();
 			
