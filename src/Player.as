@@ -13,9 +13,15 @@ package {
 		[Embed(source = '../content/sprites/live.png')]
 		private const LIVE:Class;
 		private const lifeIcon:Image = new Image(LIVE);
+		
+		//tinning.mp3 from james duckett - thefreesoundproject
+		[Embed(source = '../content/sounds/tinning.mp3')]
+		private const TING:Class;
+		public var ting:Sfx = new Sfx(TING);
+		
 		private var sprite:Image;
 		public var trail:Trail = new Trail();
-		public var dead:Boolean = false;
+		public var dead:Boolean = true;
 		
 		private var motionPath:Array = new Array();
 		private var maxSpeed:Number = 15;
@@ -199,7 +205,7 @@ package {
 			world.getType("enemy", enemies);
 			
 			var enemiesToDestroy:Array = new Array();
-
+			
 			for (var i:int = 0; i < enemies.length; i++) {
 				var e:BasicEnemy = enemies[i] as BasicEnemy;
 				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
@@ -217,6 +223,7 @@ package {
 			
 			if(numberInCombo > 0)
 			{
+				ting.play();
 				MakeComboText(numberInCombo);
 			}
 

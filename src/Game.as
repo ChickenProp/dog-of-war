@@ -13,6 +13,7 @@ public class Game extends World {
 	[Embed(source = '../content/sprites/cursor.png')]
 	private const CURSOR:Class;
 	private const cursor:Image = new Image(CURSOR);
+	//artofgardens.mp3 from http://www.danosongs.com/
 	[Embed(source = '../content/sounds/artofgardens.mp3')]
 	private const MUSIC:Class;
 	public var music:Sfx = new Sfx(MUSIC);
@@ -42,6 +43,13 @@ public class Game extends World {
 	
 	override public function update():void
 	{
+		if (Input.pressed(Key.M))
+		{
+			if (music.volume == 1)
+				music.volume = 0;
+			else
+				music.volume = 1;
+		}
 		frameNumber++;
 		
 		var p:Array = [];
