@@ -24,6 +24,8 @@ package {
 			sprite = new Image(PLANE);
 			sprite.centerOrigin();
 			graphic = sprite;
+			setHitbox(32, 16);
+			type = "player";
 			x = 0;
 			y = 0;
 		}
@@ -47,7 +49,15 @@ package {
 
 			trail.addxy(x,y);
 			
-			
+			var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
+
+			if (e)
+			{
+				lives--;
+				e.x = -1; 	//Will destroy and create new
+				if (lives < 1)
+					{}
+			}
 		}
 		
 		private function AddToMotionPath() : void
