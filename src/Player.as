@@ -48,8 +48,10 @@ package {
 			trail.addxy(x,y);
 
 			var col:int = trail.checkCollision();
-			if (col > -1)
-				FP.console.log("yay! " + col);
+			if (col > -1) {
+				trail.segments[col].tint = 0x0000FF;
+				trail.segments[trail.segments.length - 1].tint = 0x0000FF;
+			}
 		}
 
 		override public function render () : void {
