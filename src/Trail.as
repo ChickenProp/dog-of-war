@@ -5,7 +5,7 @@ import net.flashpunk.debug.*;
 
 
 public class Trail {
-	public var segments:Vector.<TrailSegment> = new Vector.<TrailSegment>();
+	public var segments:Vector.<Segment> = new Vector.<Segment>();
 
 	public function Trail () {
 	}
@@ -17,7 +17,7 @@ public class Trail {
 		else
 			start = end;
 
-		segments.push(new TrailSegment(start, end));
+		segments.push(new Segment(start, end));
 
 		if (segments.length > 60)
 			segments = segments.slice(-60);
@@ -28,7 +28,7 @@ public class Trail {
 
 	public function cut(seg:int) : void {
 		for (var i:int = 0; i < numSegments - 1; i++) {
-			var s:TrailSegment = segments[i];
+			var s:Segment = segments[i];
 			(FP.world as Game).mainEmitter.CreateParticles(
 			        (s.isLight() ? "lightFabric1" : "darkFabric1"),
 				s.start.x, s.start.y
@@ -79,7 +79,7 @@ public class Trail {
 		var wind:int = 0;
 
 		var top:vec = new vec(point.x, 0);
-		var ray:TrailSegment = new TrailSegment(point, top);
+		var ray:Segment = new Segment(point, top);
 		
 		var v1:vec = point;
 		var v2:vec = new vec(point.x, 0);
@@ -87,14 +87,14 @@ public class Trail {
 		var lastChange:int = 0;
 
 		for (var i:int = start; i <= end; i++) {
-			var edge:TrailSegment = segments[i];
+			var edge:Segment = segments[i];
 
 			// The start and end segments will be partly outside the
 			// loop, so only consider the relevant parts of them.
 			if (i == start)
-				edge = new TrailSegment(edge.intersection(segments[end]), edge.end);
+				edge = new Segment(edge.intersection(segments[end]), edge.end);
 			else if (i == end)
-				edge = new TrailSegment(edge.start, edge.intersection(segments[start]));
+				edge = new Segment(edge.start, edge.intersection(segments[start]));
 
 			if (! ray.intersecting(edge))
 				continue;
@@ -112,7 +112,7 @@ public class Trail {
 	
 	public function empty():void
 	{
-		segments = new Vector.<TrailSegment>();
+		segments = new Vector.<Segment>();
 	}
 
 	public function get numSegments():int { return segments.length; }
