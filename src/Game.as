@@ -5,6 +5,7 @@ import flash.ui.Mouse;
 import net.flashpunk.*;
 import net.flashpunk.graphics.*;
 import net.flashpunk.utils.*;
+import net.flashpunk.Sfx;
 
 
 public class Game extends World {
@@ -12,6 +13,9 @@ public class Game extends World {
 	[Embed(source = '../content/sprites/cursor.png')]
 	private const CURSOR:Class;
 	private const cursor:Image = new Image(CURSOR);
+	[Embed(source = '../content/sounds/artofgardens.mp3')]
+	private const MUSIC:Class;
+	public var music:Sfx = new Sfx(MUSIC);
 	
 	//public var gameManager:GameManager = new GameManager();
 	public var hud:HUD;
@@ -33,6 +37,7 @@ public class Game extends World {
 		}
 
 		cursor.blend = "add";
+		music.loop();
 	}
 	
 	override public function update():void
