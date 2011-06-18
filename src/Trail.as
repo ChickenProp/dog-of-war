@@ -78,11 +78,8 @@ public class Trail {
 			else if (i == end)
 				v4 = vec.intersection(v3, v4, segments[start].start, segments[start].end);
 
-			FP.console.log("testing intersection " + v3 + v4);
-
 			if (vec.intersecting(v1, v2, v3, v4)) {
 				var change:int = (v3.x < v4.x ? 1 : -1);
-				FP.console.log(change + "," + lastChange);
 				if (change == lastChange) // phantom
 					continue;
 

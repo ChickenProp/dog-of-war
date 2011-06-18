@@ -212,7 +212,6 @@
 			
 			if (mouseCursor) {
 				if (mouseCursor == "hide") {
-//					FP.console.log("hi");
 					Mouse.hide();
 					Mouse.cursor = "auto";
 				} else {
@@ -220,7 +219,6 @@
 					Mouse.cursor = mouseCursor;
 				}
 			}
-//			FP.console.log(mouseCursor);
 		}
 		
 		/**
