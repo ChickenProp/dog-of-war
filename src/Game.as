@@ -26,13 +26,6 @@ public class Game extends World {
 			add(new BouncingEnemy());
 		}
 
-		var i:* = vec.intersecting(
-		        new vec(469, 277.8),
-			new vec(469, 0),
-			new vec(484, 215),
-			new vec(467, 214)
-		        );
-		FP.console.log(i);
 		cursor.blend = "add";
 	}
 	

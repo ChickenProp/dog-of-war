@@ -1,9 +1,9 @@
 package {
-	import net.flashpunk.*;
-	import net.flashpunk.utils.*;
-	import net.flashpunk.debug.*;
+import net.flashpunk.*;
+import net.flashpunk.utils.*;
+import net.flashpunk.debug.*;
 
-	[SWF(width = "640", height = "480")]
+[SWF(width = "640", height = "480")]
 
 public class Dog extends Engine {
         public function Dog() {
@@ -12,12 +12,10 @@ public class Dog extends Engine {
 		FP.screen.color = 0xE0FFFF;
 		FP.console.enable();
 		FP.console.toggleKey = Key.ENTER;
-
-		FP.console.log(vec.intersection(new vec(2, 1), new vec(2, 3), new vec(1, 2), new vec(3, 2)));
         }
 
-			override public function init():void {
-					FP.world = new Game;
-			}
+	override public function init():void {
+		FP.world = new Game;
 	}
+}
 }
