@@ -60,9 +60,12 @@ package {
 			world.getType("enemy", enemies);
 
 			for (var i:int = 0; i < enemies.length; i++) {
-				var e:Entity = enemies[i];
-				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1))
+				var e:BasicEnemy = enemies[i] as BasicEnemy;
+				FP.console.log("testing enemy " + e.id + new vec(e.x, e.y));
+				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
+					FP.console.log("removing enemy " + e.id);
 					FP.world.remove(e);
+				}
 			}
 		}
 

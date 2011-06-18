@@ -10,6 +10,9 @@ package
 	 */
 	public class BasicEnemy extends Entity
 	{
+
+		public static var count:int = 0;
+		public var id:int;
 		
 		public function BasicEnemy() 
 		{
@@ -18,6 +21,7 @@ package
 			x = 610 + FP.rand(100);
 			y = FP.rand(480);
 			type = "enemy";
+			id = count++;
 		}
 
 		override public function update () : void {

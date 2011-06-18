@@ -65,11 +65,22 @@ public class Trail {
 			var v3:vec = segments[i].start;
 			var v4:vec = segments[i].end;
 
-			if (vec.intersecting(v1, v2, v3, v4))
-				wind += (v3.x < v4.x ? 1 : -1);
+			if (i == start)
+				v3 = vec.intersection(v3, v4, segments[end].start, segments[end].end);
+			else if (i == end)
+				v4 = vec.intersection(v3, v4, segments[start].start, segments[end].end);
+
+			FP.console.log("testing intersection " + v3 + v4);
+
+			if (vec.intersecting(v1, v2, v3, v4)) {
+				var change:int = (v3.x < v4.x ? 1 : -1);
+				wind += change;
+				FP.console.log(change);
+			}
 		}
 
 		return wind != 0;
 	}
 }
 }
+

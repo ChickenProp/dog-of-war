@@ -74,15 +74,16 @@ public class vec {
 		: Boolean
 	{
 		var inter:vec = intersection(v1, v2, v3, v4);
+		var ep:Number = 0.000000001; // avoid rounding errors
 		if (isNaN(inter.x)
-		    || inter.x < v1.x && inter.x < v2.x
-		    || inter.x < v3.x && inter.x < v4.x
-		    || inter.y < v1.y && inter.y < v2.y
-		    || inter.y < v3.y && inter.y < v4.y
-		    || inter.x > v1.x && inter.x > v2.x
-		    || inter.x > v3.x && inter.x > v4.x
-		    || inter.y > v1.y && inter.y > v2.y
-		    || inter.y > v3.y && inter.y > v4.y)
+		    || inter.x + ep < v1.x && inter.x + ep < v2.x
+		    || inter.x + ep < v3.x && inter.x + ep < v4.x
+		    || inter.y + ep < v1.y && inter.y + ep < v2.y
+		    || inter.y + ep < v3.y && inter.y + ep < v4.y
+		    || inter.x - ep > v1.x && inter.x - ep > v2.x
+		    || inter.x - ep > v3.x && inter.x - ep > v4.x
+		    || inter.y - ep > v1.y && inter.y - ep > v2.y
+		    || inter.y - ep > v3.y && inter.y - ep > v4.y)
 			return false;
 
 		return true;
