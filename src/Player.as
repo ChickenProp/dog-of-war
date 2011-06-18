@@ -46,6 +46,10 @@ package {
 			y = Input.mouseY;
 
 			trail.addxy(x,y);
+
+			var col:int = trail.checkCollision();
+			if (col > -1)
+				FP.console.log("yay! " + col);
 		}
 
 		override public function render () : void {

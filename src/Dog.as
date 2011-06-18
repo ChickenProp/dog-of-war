@@ -12,6 +12,8 @@ public class Dog extends Engine {
 
 		FP.console.enable();
 		FP.console.toggleKey = Key.ENTER;
+
+		FP.console.log(vec.intersection(new vec(2, 1), new vec(2, 3), new vec(1, 2), new vec(3, 2)));
         }
 
         override public function init():void {
