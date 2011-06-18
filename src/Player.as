@@ -156,8 +156,6 @@ package {
 			var col:int = trail.checkCollision();
 			if (col > -1) {
 				closeLoop(col);
-				for (var i:int = col; i < trail.segments.length; i++)
-					trail.segments[i].tint = 0x0000FF;
 			}
 		}
 
@@ -182,6 +180,7 @@ package {
 				tempEnemy.KilledByPlayer(numberInCombo);
 			}
 
+			trail.cut(seg);
 		}
 
 		override public function render () : void {

@@ -26,6 +26,13 @@ public class Trail {
 		add(new vec(x,y));
 	}
 
+	public function cut(seg:int) : void {
+		var inter:vec = segments[seg].intersection(segments[segments.length - 1]);
+
+		segments = segments.slice(seg);
+		segments[0].start = inter;
+	}
+
 	public function draw () : void {
 		if (segments.length < 2)
 			return;
