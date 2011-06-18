@@ -73,7 +73,9 @@ package {
 
 				if (e)
 				{
-					hit.play(0.4);
+					if(!Game.mute)
+						hit.play(0.4);
+						
 					GameManager.lives--;
 					e.x = -1; 	//Will destroy and create new
 					if (GameManager.lives < 1)
@@ -91,7 +93,8 @@ package {
 							}
 						}
 						dead = true;
-						death.play();
+						if(!Game.mute)
+							death.play();
 						trail.empty();
 					}
 				}
@@ -234,7 +237,8 @@ package {
 			
 			if(numberInCombo > 0)
 			{
-				ting.play();
+				if(!Game.mute)
+					ting.play();
 				MakeComboText(numberInCombo);
 			}
 
