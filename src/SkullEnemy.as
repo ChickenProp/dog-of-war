@@ -47,8 +47,8 @@ package
 			{
 				if (fire)
 				{
-					FP.world.add(new Laser(x, y));
-					FP.world.add(new Laser(x + 10, y + 10));
+					FP.world.add(new Laser(x - 10, y - 7));
+					FP.world.add(new Laser(x, y - 3));
 					fire = false;
 				}
 				intervalTimer--;

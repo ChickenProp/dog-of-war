@@ -8,7 +8,7 @@ package
 	 * ...
 	 * @author Sarah
 	 */
-	public class Laser extends Entity
+	public class Laser extends BasicEnemy
 	{
 		[Embed(source = '../content/sprites/laser.png')]
 		private const LASER:Class;
@@ -20,7 +20,7 @@ package
 			sprite.centerOrigin();
 			graphic = sprite;
 			
-			setHitbox(50, 10);
+			setHitbox(25, 3);
 			centerOrigin();
 			
 			x = xStart;

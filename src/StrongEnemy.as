@@ -40,9 +40,8 @@ public class StrongEnemy extends BasicEnemy {
 
 	override public function hit (comboSize:int) : void {
 		health--;
-				
-		graphic = Image.createRect(5, 5, 0xBB00BB);
-		(graphic as Image).centerOrigin();
+		
+		sprite.color = 0xFF2400;
 
 		if (health == 0)
 			KilledByPlayer(comboSize);
