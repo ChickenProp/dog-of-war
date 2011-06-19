@@ -35,7 +35,8 @@ public class Trail {
 
 	public function cut(seg:int) : void 
 	{
-		cutSound.play();
+		if(!Game.mute)
+			cutSound.play();
 		
 		for (var i:int = 0; i < numSegments - 1; i++) {
 			var s:Segment = segments[i];

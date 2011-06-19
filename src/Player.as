@@ -65,7 +65,7 @@ package {
 		}
 			
 		override public function update () : void 
-		{		
+		{				
 			super.update();
 			
 			var oldX:Number = x;
@@ -149,8 +149,10 @@ package {
 					increase = false;
 				if (sprite.alpha <= 0)
 					increase = true;
-					
-				if (Input.mousePressed && !Game.tutorial)
+				
+				FP.console.log(dead + ", " + !Game.tutorial + ", " + !Game.title);
+				
+				if (Input.mousePressed && !Game.tutorial && !Game.title)
 				{
 					// The mouse button was just pressed this frame.
 					dead = false;

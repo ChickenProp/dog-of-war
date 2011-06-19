@@ -10,12 +10,17 @@ package
 	public class BouncingEnemy extends Mine
 	{
 		private var moveAngle:Number;
+		[Embed(source = '../content/sprites/mineSprite.png')]
+		private const MINE:Class;
 		
 		public function BouncingEnemy() 
 		{
 			super();
-			graphic = Image.createRect(5, 5, 0x7CFC00);
-			(graphic as Image).centerOO();
+			sprite = new Image(MINE);
+			sprite.scale = 0.25;
+			sprite.centerOrigin();
+			graphic = sprite;
+			centerOrigin();
 			moveAngle = FP.rand(160) + 10;
 			layer = 100;
 		}

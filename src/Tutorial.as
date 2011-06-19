@@ -56,12 +56,13 @@ package
 			FP.world.getClass(Player, pl);
 			ttext.alpha = pl[0].graphic.alpha;
 			
-			if (timer < 0)
+			if (sprite.alpha <= 0)
 			{
-				FP.world.remove(this);
+				//trace("here");
 				Game.tutorial = false;
+				FP.world.remove(this);
 			}
-			FP.console.log(x + ", " + y);
+			//FP.console.log(x + ", " + y);
 		}
 		
 		override public function render():void
