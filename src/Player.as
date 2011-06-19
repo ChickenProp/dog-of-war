@@ -131,7 +131,7 @@ package {
 						
 						var enemiesToFade:Array = [];
 						FP.world.getType("enemy", enemiesToFade);
-						for each(var enemy:BasicEnemy in enemiesToFade)
+						for each(var enemy:Hittable in enemiesToFade)
 						{
 							enemy.fadeOut = true;
 						}
