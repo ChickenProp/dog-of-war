@@ -9,14 +9,14 @@ public class EnemyMgr {
 	public var timeout:int = 0;
 
 	public function EnemyMgr() {
-		enemyTypes.push(BasicEnemy);
+		enemyTypes.push(Mine);
 		enemyTypes.push(BouncingEnemy);
 		enemyTypes.push(StrongEnemy);
 		enemyTypes.push(SkullEnemy);
 	}
 
 	public function update () : void {
-		var n:int = FP.world.typeCount("enemy") - FP.world.classCount(Laser);
+		var n:int = FP.world.classCount(BasicEnemy) + FP.world.classCount(Mine);
 		if (n < targetEnemies() && canAddEnemy())
 			addEnemy();
 

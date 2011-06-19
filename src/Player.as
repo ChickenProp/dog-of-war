@@ -240,13 +240,13 @@ package {
 
 		public function closeLoop(seg:int) : void {
 			var enemies:Array = [];
-			world.getClass(BasicEnemy, enemies);
+			world.getClass(Hittable, enemies);
 			
 			var enemiesKilled:Array = new Array();
 			
 			for (var i:int = 0; i < enemies.length; i++) 
 			{
-				var e:BasicEnemy = enemies[i] as BasicEnemy;
+				var e:Hittable = enemies[i] as Hittable;
 				if (e)
 				{
 					if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
@@ -258,7 +258,7 @@ package {
 			
 			numberInCombo = enemiesKilled.length;
 			
-			for each(var tempEnemy:BasicEnemy in enemiesKilled) {
+			for each(var tempEnemy:Hittable in enemiesKilled) {
 				GameManager.score += tempEnemy.pointsValue * numberInCombo;
 				tempEnemy.ExplodeWithParticles();
 				tempEnemy.GenerateScoreParticle(tempEnemy.pointsValue * numberInCombo);
