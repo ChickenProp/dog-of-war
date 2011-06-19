@@ -244,10 +244,14 @@ package {
 			
 			var enemiesHit:Array = new Array();
 			
-			for (var i:int = 0; i < enemies.length; i++) {
+			for (var i:int = 0; i < enemies.length; i++) 
+			{
 				var e:BasicEnemy = enemies[i] as BasicEnemy;
-				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-					enemiesHit.push(e);
+				if (e)
+				{
+					if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
+						enemiesHit.push(e);
+					}
 				}
 			}
 			

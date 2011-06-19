@@ -13,8 +13,16 @@ package
 		[Embed(source = '../content/sprites/skullFly.png')]
 		private const SKULLANIM:Class;
 		
+		private const stillTime:int = 50;
+		private const fireTime:int = 100;
+		
 		private var sprite:Image;
 		private var animatedSprite:Spritemap;
+		
+		private var timer:Number = 2 * Math.PI;
+		private var fireTimer:Number = fireTime;
+		private var intervalTimer:Number = stillTime;
+		private var fire:Boolean = true;
 		
 		public function SkullEnemy() 
 		{
@@ -29,11 +37,37 @@ package
 			
 			setHitbox(20, 20);
 			centerOrigin();
+			
+			timer = FP.rand(timer + 1);
 		}
 		
 		override public function update():void
 		{
-			super.update();
+			if (fireTimer < 0)
+			{
+				if (fire)
+				{
+					FP.world.add(new Laser(x, y));
+					FP.world.add(new Laser(x + 10, y + 10));
+					fire = false;
+				}
+				intervalTimer--;
+				if (intervalTimer < 0)
+				{
+					intervalTimer += stillTime;
+					fireTimer += fireTime;
+					fire = true;
+				}
+			}
+			else
+			{
+				fireTimer--;
+				super.update();
+				y += Math.sin(timer);
+				timer -= 0.03;
+				if (timer < 0)
+					timer += 2 * Math.PI;
+			}
 		}
 		
 	}
