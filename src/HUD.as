@@ -23,8 +23,8 @@ package
 		{
 			game = myGame;
 			
-			scoreText = new Text("temp", 30, 30);
-			hiscoreText = new Text("hisc", 30, 50);
+			scoreText = new Text("temp", 30, 50);
+			hiscoreText = new Text("hisc", 30, 30);
 			distanceText = new Text("dist", 30, 480 - 80);
 			
 			scoreText.color = 0x005522;
