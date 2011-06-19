@@ -27,6 +27,8 @@ package
 			
 			type = "enemy";
 			layer = 75;
+
+			pointsValue = 50;
 		}
 		
 		override public function update():void

@@ -43,6 +43,8 @@ package
 			centerOrigin();
 			
 			timer = FP.rand(timer + 1);
+
+			pointsValue = 150;
 		}
 		
 		override public function update():void

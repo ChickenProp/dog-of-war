@@ -23,6 +23,7 @@ package
 			centerOrigin();
 			moveAngle = FP.rand(160) + 10;
 			layer = 100;
+			pointsValue = 100;
 		}
 		
 		override public function update () : void 
