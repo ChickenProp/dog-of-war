@@ -20,8 +20,8 @@ public class Game extends World {
 	
 	//artofgardens.mp3 from http://www.danosongs.com/
 	[Embed(source = '../content/sounds/artofgardens.mp3')]
-	private const MUSIC:Class;
-	public var music:Sfx = new Sfx(MUSIC);
+	static private const MUSIC:Class;
+	static public var music:Sfx = new Sfx(MUSIC);
 	
 	//public var gameManager:GameManager = new GameManager();
 	public var hud:HUD;

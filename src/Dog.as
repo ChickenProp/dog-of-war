@@ -41,6 +41,7 @@ public class Dog extends Engine
 	{
 		focused = false;
 		Game.pause = true;
+		Game.music.volume = 0;
 	}
 
 }
