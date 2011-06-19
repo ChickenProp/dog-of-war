@@ -240,7 +240,7 @@ package {
 
 		public function closeLoop(seg:int) : void {
 			var enemies:Array = [];
-			world.getType("enemy", enemies);
+			world.getClass(BasicEnemy, enemies);
 			
 			var enemiesHit:Array = new Array();
 			

@@ -57,8 +57,32 @@ public class Trail {
 
 		FP.sprite.graphics.clear();
 
+		/* var dir1:vec;
+		var dir2:vec;
+		var dir3:vec;
+		var offdirS:vec;
+		var offdirE:vec;
+		var offS:Number = 0;
+		var offE:Number = 0;
+		*/
 		for (var i:int = 0; i < segments.length; i++) {
-			segments[i].draw();
+			/*if (i == segments.length - 1) {
+				offdirE = dir2.perp();
+			}
+
+			dir1 = dir2;
+			dir2 = dir3;
+			dir3 = segments[i+1].dir();
+
+			offdirS = offdirE;
+			offdirE = dir2.add(dir3).normalize();
+
+			segments[i].draw(new Segment(offdirS.mul(offS),
+			offdirE.mul(offE)));
+			*/
+
+			segments[i].draw(new Segment(new vec(0,0),
+			                             new vec(0,0)));
 		}
 
 		FP.buffer.draw(FP.sprite, null, null);

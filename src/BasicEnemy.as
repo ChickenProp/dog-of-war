@@ -16,13 +16,15 @@ package
 		
 		public var pointsValue:int = 100;
 
+		public var vel:vec = new vec(-FP.random*2 - 0.5, 0);
+
 		
 		public function BasicEnemy() 
 		{
 			graphic = Image.createRect(5, 5, 0xFF6600);
 			(graphic as Image).centerOO();
 			x = 640 + FP.rand(100);
-			y = FP.rand(480);
+			y = FP.rand(360) + 60;
 			setHitbox(5, 5);
 			centerOrigin();
 			type = "enemy";
@@ -31,7 +33,8 @@ package
 		}
 
 		override public function update () : void {
-			x -= 1;
+			x += vel.x;
+			y += vel.y;
 			if (x < 0)
 				FP.world.remove(this);
 		}

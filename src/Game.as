@@ -79,6 +79,14 @@ public class Game extends World {
 				music.volume = 1;
 			}
 		}
+
+		if (Input.mousePressed) {
+			if (pause) {
+				pause = false;
+				music.volume = 1;
+			}
+		}
+
 		frameNumber++;
 		
 		if (!pause)
