@@ -14,7 +14,6 @@ public class StrongEnemy extends BasicEnemy {
 
 	[Embed(source = '../content/sprites/ufoSprite.png')]
 	private const UFO:Class;
-	private var sprite:Image;
 	
 	public function StrongEnemy() {
 		super();

@@ -15,6 +15,10 @@ package {
 		[Embed(source = '../content/sprites/dogPlaneAnim.png')]
 		private const DOGPLANEANIM:Class;
 		
+		[Embed(source = '../content/sprites/deadText.png')]
+		private const DTEXT:Class;
+		private const dText:Image = new Image(DTEXT);
+		
 		//tinning.mp3 from james duckett - thefreesoundproject
 		[Embed(source = '../content/sounds/tinning.mp3')]
 		private const TING:Class;
@@ -54,8 +58,8 @@ package {
 			graphic = sprite;
 			setHitbox(16, 16);
 			type = "player";
-			x = 0;
-			y = 0;
+			x = 320;
+			y = 240;
 			layer = 100;
 			centerOrigin();
 		}
@@ -95,7 +99,7 @@ package {
 				
 				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
 
-				if (e)
+				if (e && !e.fadeOut)
 				{
 					if(!Game.mute)
 						hit.play();
@@ -120,6 +124,13 @@ package {
 						if(!Game.mute)
 							death.play();
 						trail.empty();
+						
+						var enemiesToFade:Array = [];
+						FP.world.getType("enemy", enemiesToFade);
+						for each(var enemy:BasicEnemy in enemiesToFade)
+						{
+							enemy.fadeOut = true;
+						}
 					}
 				}
 			}
@@ -135,7 +146,7 @@ package {
 				if (sprite.alpha <= 0)
 					increase = true;
 					
-				if (Input.mousePressed)
+				if (Input.mousePressed && !Game.tutorial)
 				{
 					// The mouse button was just pressed this frame.
 					dead = false;
@@ -291,6 +302,8 @@ package {
 			trail.draw();
 			//note - Ali moved the life drawing to HUD.as
 			super.render();
+			if (dead && !Game.tutorial)
+				dText.render(FP.buffer, new Point(640 - dText.width, 480 - dText.height - 10), FP.camera);
 		}
 	}
 }

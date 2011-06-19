@@ -10,6 +10,7 @@ import net.flashpunk.Sfx;
 
 public class Game extends World {
 	public var frameNumber:int = 0;
+	
 	[Embed(source = '../content/sprites/cursor.png')]
 	private const CURSOR:Class;
 	private const cursor:Image = new Image(CURSOR);
@@ -28,6 +29,8 @@ public class Game extends World {
 	public var mainEmitter:EmitterExtra;
 	static public var mute:Boolean = false;
 	static public var pause:Boolean = false;
+	static public var tutorial:Boolean = true;
+	private var tut:Tutorial;
 
 	public var enemyMgr:EnemyMgr = new EnemyMgr();
 
@@ -40,6 +43,9 @@ public class Game extends World {
 		add(new Cloud());
 
 		add(new Player());
+		
+		tut = new Tutorial();
+		add(tut);
 
 		cursor.blend = "add";
 		cursor.scale = 0.25;
@@ -89,17 +95,36 @@ public class Game extends World {
 
 		frameNumber++;
 		
-		if (!pause)
+		if (tutorial)
 		{
-			var p:Array = [];
-			getClass(Player, p);
-			if (!p[0].dead)
+			var pl:Array = [];
+			getClass(Player, pl);
+			pl[0].update();
+			tut.update();		
+		}
+		else
+		{
+			if (!pause)
 			{
-				super.update();
-				GameManager.update();
+				var p:Array = [];
+				getClass(Player, p);
+				if (!p[0].dead)
+				{
+					super.update();
+					GameManager.update();
+				}
+				else
+				{
+					var enemies:Array = [];
+					FP.world.getType("enemy", enemies);
+					for each(var enemy:BasicEnemy in enemies)
+					{
+						if(enemy.fadeOut)
+							enemy.update();
+					}
+					p[0].update();
+				}
 			}
-			else
-				p[0].update();
 		}
 
 		hud.update();
@@ -124,7 +149,8 @@ public class Game extends World {
 	{
 		super.render();
 		cursor.render(FP.buffer, new Point(Input.mouseX - cursor.width * cursor.scale / 2, Input.mouseY - cursor.height * cursor.scale / 2), FP.camera);
-		hud.render();
+		if (!tutorial)
+			hud.render();
 		mainEmitter.render(FP.buffer, new Point(), FP.camera);
 		if (pause)
 			paused.render(FP.buffer, new Point(640 / 2 - paused.width / 2, 480 / 2 - paused.height / 2), FP.camera);

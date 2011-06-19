@@ -21,7 +21,6 @@ package
 		private const stillTime:int = 50;
 		private const fireTime:int = 100;
 		
-		private var sprite:Image;
 		private var animatedSprite:Spritemap;
 		
 		private var timer:Number = 2 * Math.PI;
@@ -48,31 +47,41 @@ package
 		
 		override public function update():void
 		{
-			if (fireTimer < 0)
+			if (!fadeOut)
 			{
-				if (fire)
+				if (fireTimer < 0)
 				{
-					shot.play();
-					FP.world.add(new Laser(x - 10, y - 7));
-					FP.world.add(new Laser(x, y - 3));
-					fire = false;
+					if (fire)
+					{
+						shot.play();
+						FP.world.add(new Laser(x - 10, y - 7));
+						FP.world.add(new Laser(x, y - 3));
+						fire = false;
+					}
+					intervalTimer--;
+					if (intervalTimer < 0)
+					{
+						intervalTimer += stillTime;
+						fireTimer += fireTime;
+						fire = true;
+					}
 				}
-				intervalTimer--;
-				if (intervalTimer < 0)
+				else
 				{
-					intervalTimer += stillTime;
-					fireTimer += fireTime;
-					fire = true;
+					fireTimer--;
+					super.update();
+					y += Math.sin(timer);
+					timer -= 0.03;
+					if (timer < 0)
+						timer += 2 * Math.PI;
 				}
 			}
 			else
 			{
-				fireTimer--;
-				super.update();
-				y += Math.sin(timer);
-				timer -= 0.03;
-				if (timer < 0)
-					timer += 2 * Math.PI;
+				fadeTimer--;
+				sprite.alpha = fadeTimer / fadeMax;
+				if (sprite.alpha <= 0)
+					FP.world.remove(this);
 			}
 		}
 		
