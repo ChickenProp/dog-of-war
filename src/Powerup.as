@@ -17,7 +17,6 @@ public class Powerup extends Hittable {
 		sprite.centerOrigin();
 		graphic = sprite;
 		
-		setHitbox(10, 10);
 		centerOrigin();
 
 		type = "powerup";
