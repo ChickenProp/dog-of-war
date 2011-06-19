@@ -51,6 +51,7 @@ public class Game extends World {
 
 	public function Game () {
 		FP.watch("id");
+		FP.watch("fadeOut");
 		hud = new HUD(this);
 		mainEmitter = new EmitterExtra();
 

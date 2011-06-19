@@ -14,7 +14,7 @@ public class Dog extends Engine
 	{
 		super(640, 480, 60, false);
 		Data.load("dog-of-war-data");
-		FP.console.enable();
+		//FP.console.enable();
 		FP.console.toggleKey = Key.ENTER;
 	}
 
