@@ -109,7 +109,7 @@ package {
 						hit.play();
 						
 					GameManager.lives--;
-					e.x = -1; 	//Will destroy and create new
+					e.Destroy();
 					if (GameManager.lives < 1)
 					{
 						for (var i:int = 0; i < 10 ; i++)
