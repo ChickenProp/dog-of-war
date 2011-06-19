@@ -53,7 +53,8 @@ package
 				{
 					if (fire)
 					{
-						shot.play();
+						if (!Game.mute)
+							shot.play();
 						FP.world.add(new Laser(x - 10, y - 7));
 						FP.world.add(new Laser(x, y - 3));
 						fire = false;

@@ -15,6 +15,14 @@ public class Game extends World {
 	private const CURSOR:Class;
 	private const cursor:Image = new Image(CURSOR);
 	
+	[Embed(source = '../content/sprites/title dog.png')]
+	private const TITLEDOG:Class;
+	private const titleDog:Image = new Image(TITLEDOG);
+
+	[Embed(source = '../content/sprites/titleText.png')]
+	private const TITLETEXT:Class;
+	private const titleText:Image = new Image(TITLETEXT);
+	
 	[Embed(source = '../content/sprites/pause.png')]
 	private const PAUSE:Class;
 	private const paused:Image = new Image(PAUSE);
@@ -29,8 +37,13 @@ public class Game extends World {
 	public var mainEmitter:EmitterExtra;
 	static public var mute:Boolean = false;
 	static public var pause:Boolean = false;
-	static public var tutorial:Boolean = true;
+	static public var tutorial:Boolean = false;
+	static public var title:Boolean = true;
 	private var tut:Tutorial;
+	
+	private const titleMax:int = 50;
+	private var titleTimer:int = titleMax;
+	private var change:Boolean = false;
 
 	public var enemyMgr:EnemyMgr = new EnemyMgr();
 
@@ -51,6 +64,8 @@ public class Game extends World {
 
 		cursor.blend = "add";
 		cursor.scale = 0.25;
+		
+		titleDog.scale = 0.5;
 		
 		music.loop();
 	}
@@ -91,16 +106,44 @@ public class Game extends World {
 			}
 		}
 
-		if (Input.mousePressed) {
+		if (Input.mousePressed) 
+		{
+			if (title)
+			{
+				change = true;
+			}
 			if (pause) {
 				pause = false;
 				music.volume = 1;
 			}
 		}
+		
+		if (change)
+		{
+			titleTimer--;
+			titleDog.alpha = titleTimer / titleMax;
+			titleText.alpha = titleTimer / titleMax;
+			if (titleDog.alpha <= 0)
+			{
+				title = false;
+				tutorial = true;
+				tut.visible = true;
+				change = false;
+			}
+		}
 
 		frameNumber++;
 		
-		if (tutorial)
+		//trace(tutorial);
+		
+		if (title)
+		{
+			var play:Array = [];
+			getClass(Player, play);
+			play[0].update();
+			tut.visible = false;
+		}
+		else if (tutorial)
 		{
 			var pl:Array = [];
 			getClass(Player, pl);
@@ -154,8 +197,13 @@ public class Game extends World {
 	{
 		super.render();
 		cursor.render(FP.buffer, new Point(Input.mouseX - cursor.width * cursor.scale / 2, Input.mouseY - cursor.height * cursor.scale / 2), FP.camera);
-		if (!tutorial)
+		if (!tutorial && !title)
 			hud.render();
+		if (title)
+		{
+			titleDog.render(FP.buffer, new Point(640 - titleDog.width / 2, 0), FP.camera);
+			titleText.render(FP.buffer, new Point(25, 480 / 2 + 25), FP.camera);
+		}
 		mainEmitter.render(FP.buffer, new Point(), FP.camera);
 		if (pause)
 			paused.render(FP.buffer, new Point(640 / 2 - paused.width / 2, 480 / 2 - paused.height / 2), FP.camera);
