@@ -24,7 +24,7 @@ package
 			graphic = Image.createRect(5, 5, 0xFF6600);
 			(graphic as Image).centerOO();
 			x = 640 + FP.rand(100);
-			y = FP.rand(360) + 60;
+			y = FP.rand(420) + 30;
 			setHitbox(5, 5);
 			centerOrigin();
 			type = "enemy";
@@ -67,19 +67,9 @@ package
 		
 		}
 		
-		public function GenerateScoreParticle(forScore:int) :void
+		public function getScoreMult(m:int) :void
 		{
-			
-			if(FP.world is Game)
-			{
-				var tempGame:Game = FP.world as Game;
-				var tempString:String = forScore.toString();
-				
-				var newParticle:TextParticle = tempGame.mainEmitter.AddTextObject(tempString, x, y, 0, -2);
-				newParticle.color = 0xEE8800;
-
-				
-			}
+			GameManager.addScore(pointsValue*m, x, y);
 		}
 		
 		public function Destroy() : void
