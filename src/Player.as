@@ -91,6 +91,10 @@ package {
 				{
 					trail.addxy(x,y);	
 				}
+				else
+				{
+					trail.RetractToMinLength();
+				}
 				
 				
 				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
