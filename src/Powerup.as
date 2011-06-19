@@ -7,11 +7,15 @@ import net.flashpunk.utils.*;
 public class Powerup extends Hittable {
 	public var health:int = 3;
 
+	[Embed(source = '../content/sprites/powerup.png')]
+	private const POWERUP:Class;
+	
 	public function Powerup() {
 		super();
 
-		graphic = Image.createCircle(10, 0x00FFFF);
-		(graphic as Image).centerOrigin();
+		sprite = new Image(POWERUP);
+		sprite.centerOrigin();
+		graphic = sprite;
 		
 		setHitbox(10, 10);
 		centerOrigin();
