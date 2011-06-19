@@ -164,7 +164,7 @@ public class Game extends World {
 				else
 				{
 					var enemies:Array = [];
-					FP.world.getType("enemy", enemies);
+					FP.world.getClass(Hittable, enemies);
 					for each(var enemy:Hittable in enemies)
 					{
 						if(enemy.fadeOut)
