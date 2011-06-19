@@ -12,7 +12,6 @@ package
 	{
 		[Embed(source = '../content/sprites/laser.png')]
 		private const LASER:Class;
-		private var sprite:Image;
 		
 		public function Laser(xStart:int, yStart:int) 
 		{
@@ -32,9 +31,19 @@ package
 		
 		override public function update():void
 		{
-			x -= 2;
-			if (x < 0)
-				FP.world.remove(this);
+			if (fadeOut)
+			{
+				fadeTimer--;
+				sprite.alpha = fadeTimer / fadeMax;
+				if (sprite.alpha <= 0)
+					FP.world.remove(this);
+			}
+			else
+			{
+				x -= 2;
+				if (x < 0)
+					FP.world.remove(this);
+			}
 		}
 	}
 
