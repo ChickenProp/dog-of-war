@@ -18,6 +18,19 @@ package
 		{
 			
 		}
+
+		static public function addScore(s:int, x:Number, y:Number) : void {
+			var tempGame:Game = FP.world as Game;
+			var tempString:String = s.toString();
+				
+			var newParticle:TextParticle = tempGame.mainEmitter.AddTextObject(tempString, x, y, 0, -2);
+			newParticle.color = 0xEE8800;
+
+			score += s;
+
+			if (Math.floor(score / 5000) > Math.floor((score - s)/5000))
+				FP.world.add(new Powerup());
+		}
 		
 		static public function reset():void
 		{

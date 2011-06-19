@@ -97,7 +97,7 @@ package {
 				}
 				
 				
-				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
+				var e:Hittable = collide("enemy", x, y) as Hittable;
 
 				if (e)
 				{
@@ -263,9 +263,8 @@ package {
 			numberInCombo = enemiesKilled.length;
 			
 			for each(var tempEnemy:Hittable in enemiesKilled) {
-				GameManager.score += tempEnemy.pointsValue * numberInCombo;
 				tempEnemy.ExplodeWithParticles();
-				tempEnemy.GenerateScoreParticle(tempEnemy.pointsValue * numberInCombo);
+				tempEnemy.getScoreMult(numberInCombo);
 			}
 			
 			if(numberInCombo > 0 && !Game.mute)
