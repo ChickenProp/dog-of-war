@@ -1,7 +1,7 @@
 package {
 import net.flashpunk.*;
-import net.flashpunk.utils.*;
 import net.flashpunk.debug.*;
+import net.flashpunk.utils.*;
 
 
 public class Trail {
@@ -11,6 +11,8 @@ public class Trail {
 	[Embed(source = '../content/sounds/swosh.mp3')]
 	private const CUT:Class;
 	public var cutSound:Sfx = new Sfx(CUT);
+	
+	public var minLength:int = 5;
 
 	public function Trail () {
 	}
@@ -153,6 +155,8 @@ public class Trail {
 	{
 		segments = new Vector.<Segment>();
 	}
+	
+	
 
 	public function lengthFrom(i:int) : Number {
 		var l:int = 0;
@@ -162,6 +166,14 @@ public class Trail {
 	}
 
 	public function get numSegments():int { return segments.length; }
+	
+	public function RetractToMinLength() :void
+	{
+		if(numSegments > minLength)
+		{
+			segments = segments.slice(-(numSegments - 1));
+		}
+	}
 }
 }
 

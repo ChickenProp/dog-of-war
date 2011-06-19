@@ -7,7 +7,7 @@ package
 	 * ...
 	 * @author Sarah
 	 */
-	public class BouncingEnemy extends BasicEnemy
+	public class BouncingEnemy extends Mine
 	{
 		private var moveAngle:Number;
 		

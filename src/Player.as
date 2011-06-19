@@ -95,9 +95,13 @@ package {
 				{
 					trail.addxy(x,y);	
 				}
+				else
+				{
+					trail.RetractToMinLength();
+				}
 				
 				
-				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
+				var e:Hittable = collide("enemy", x, y) as Hittable;
 
 				if (e && !e.fadeOut)
 				{
@@ -251,33 +255,34 @@ package {
 
 		public function closeLoop(seg:int) : void {
 			var enemies:Array = [];
-			world.getClass(BasicEnemy, enemies);
+			world.getClass(Hittable, enemies);
 			
-			var enemiesHit:Array = new Array();
+			var enemiesKilled:Array = new Array();
 			
 			for (var i:int = 0; i < enemies.length; i++) 
 			{
-				var e:BasicEnemy = enemies[i] as BasicEnemy;
+				var e:Hittable = enemies[i] as Hittable;
 				if (e)
 				{
 					if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-						enemiesHit.push(e);
+						if (e.hit())
+							enemiesKilled.push(e);
 					}
 				}
 			}
 			
-			numberInCombo = enemiesHit.length;
+			numberInCombo = enemiesKilled.length;
 			
-			for each(var tempEnemy:BasicEnemy in enemiesHit) {
-				tempEnemy.hit(numberInCombo);
+			for each(var tempEnemy:Hittable in enemiesKilled) {
+				tempEnemy.ExplodeWithParticles();
+				tempEnemy.getScoreMult(numberInCombo);
 			}
 			
-			if(numberInCombo > 0)
-			{
-				if(!Game.mute)
-					ting.play();
+			if(numberInCombo > 0 && !Game.mute)
+				ting.play();
+
+			if (numberInCombo > 1)
 				MakeComboText(numberInCombo);
-			}
 
 			trail.cut(seg);
 		}

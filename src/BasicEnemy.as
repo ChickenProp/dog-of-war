@@ -1,16 +1,7 @@
 package  
 {
-	import net.flashpunk.*;
-	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.*;
-	import net.flashpunk.utils.*;
-	/**
-	 * ...
-	 * @author Sarah
-	 */
-	public class BasicEnemy extends Entity
-	{
 
+public class BasicEnemy extends Hittable {
 		public static var count:int = 0;
 		public var id:int;
 
