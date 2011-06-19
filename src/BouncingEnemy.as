@@ -22,8 +22,7 @@ package
 		
 		override public function update () : void 
 		{
-			// Math.sin(moveAngle * Math.PI / 180);
-			y -= Math.cos(moveAngle * Math.PI / 180);
+			vel.y = Math.cos(moveAngle * Math.PI / 180);
 			if (y < 0 || y > 480)
 				moveAngle = 180 -moveAngle;
 			super.update();

@@ -16,6 +16,8 @@ package
 		
 		public var pointsValue:int = 100;
 
+		public var vel:vec = new vec(-FP.random*2 - 0.5, 0);
+
 		
 		public function BasicEnemy() 
 		{
@@ -31,7 +33,8 @@ package
 		}
 
 		override public function update () : void {
-			x -= 1;
+			x += vel.x;
+			y += vel.y;
 			if (x < 0)
 				FP.world.remove(this);
 		}
