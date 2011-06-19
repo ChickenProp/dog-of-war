@@ -75,6 +75,8 @@ package {
 			
 			AngleSprite(oldX, oldY, x, y);
 
+			updateVulnerability();
+
 			if (!dead)
 			{
 				sprite.alpha = 1;
@@ -107,9 +109,14 @@ package {
 				{
 					if(!Game.mute)
 						hit.play();
-						
-					GameManager.lives--;
+
 					e.Destroy();
+
+					if (!isInvulnerable()) {
+						GameManager.lives--;
+						makeInvulnerable();
+					}
+
 					if (GameManager.lives < 1)
 					{
 						for (var i:int = 0; i < 10 ; i++)
@@ -309,6 +316,33 @@ package {
 			super.render();
 			if (dead && !Game.tutorial)
 				dText.render(FP.buffer, new Point(640 - dText.width, 480 - dText.height - 10), FP.camera);
+		}
+
+		public var invulntime:int = 0;
+		public var invulncolor:uint = 0xFFFFFF;
+
+		public function makeInvulnerable () : void {
+			invulntime = 30;
+		}
+
+		public function isInvulnerable () : Boolean {
+			return invulntime > 0;
+		}
+
+		public function updateVulnerability () : void {
+			if (dead) {
+				invulntime = 0;
+				invulncolor = 0xFFFFFF;
+			}
+			else {
+				invulntime--;
+				if (invulntime > 14)
+					invulncolor -= 0x001111;
+				else if (invulntime >= 0)
+					invulncolor += 0x001111;
+			}
+
+			(graphic as Image).color = invulncolor;
 		}
 	}
 }
