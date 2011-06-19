@@ -16,9 +16,10 @@ public class Segment {
 	}
 
 	// This only draws to FP.sprite.graphics, not to FP.buffer.
-	public function draw () : void {
-		var off:vec = new vec(10, 0);
-		quad(this, new Segment(this.start.add(off), this.end.add(off)),
+	public function draw (offset:Segment) : void {
+		var offL:vec = new vec(-5, 0);
+		var offR:vec = new vec(5, 0);
+		quad(addseg(offset).addvec(offL), addseg(offset).addvec(offR), 
 		     isLight() ? 0xFF2400 : 0xB22222 );
 	}
 
@@ -61,6 +62,19 @@ public class Segment {
 
 	public function intersecting (other:Segment) : Boolean {
 		return vec.intersecting(start, end, other.start, other.end);
+	}
+
+	// Returns the direction of this segment, as a normalized vector.
+	public function dir () : vec {
+		return end.sub(start).normalize();
+	}
+
+	public function addvec (v:vec) : Segment {
+		return new Segment(start.add(v), end.add(v));
+	}
+
+	public function addseg (s:Segment) : Segment {
+		return new Segment(start.add(s.start), end.add(s.end));
 	}
 }
 }

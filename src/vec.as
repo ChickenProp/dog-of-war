@@ -13,6 +13,10 @@ public class vec {
 		return Math.sqrt(x*x + y*y);
 	}
 
+	public function eq (v:vec) : Boolean {
+		return x == v.x && y == v.y;
+	}
+
 	public function add(v:vec):vec {
 		return new vec(x + v.x, y + v.y);
 	}
@@ -57,6 +61,12 @@ public class vec {
 		}
 		
 		return this;
+	}
+
+	// Returns a vector perpendicular to this one, with an anticlockwise
+	// twist.
+	public function perp() : vec {
+		return new vec(-y, x);
 	}
 
 	public function toString () : String {
@@ -108,6 +118,20 @@ public class vec {
 			return false;
 
 		return true;
+	}
+
+	// Returns a normalized vector bisecting the anticlockwise angle between
+	// this and v. If they are parallel, the angle between them is
+	// considered to be 2pi (so this returns a vector antiparallel to them).
+	public function bisectAngle(v:vec) : vec {
+		var p1:vec = perp().normalize();
+		var p2:vec = v.perp().normalize();
+		var p3:vec = p1.add(p2).normalize();
+
+		if (p3.eq(new vec(0,0))) // they are antiparallel
+			return p1;
+		else
+			return p3.perp();
 	}
 
 }
