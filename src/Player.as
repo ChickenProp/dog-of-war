@@ -8,11 +8,10 @@ package {
 
 	public class Player extends Entity 
 	{
-		[Embed(source = '../content/sprites/plane.png')]
-		private const PLANE:Class;
 		[Embed(source = '../content/sprites/live.png')]
 		private const LIVE:Class;
 		private const lifeIcon:Image = new Image(LIVE);
+		
 		[Embed(source = '../content/sprites/dogPlaneAnim.png')]
 		private const DOGPLANEANIM:Class;
 		
@@ -50,7 +49,7 @@ package {
 			animatedSprite.add("wobble", [0, 1, 2, 3], 1);
 			animatedSprite.play("wobble");
 			
-			sprite = animatedSprite;//new Image(PLANE);
+			sprite = animatedSprite;
 			sprite.centerOrigin();
 			graphic = sprite;
 			setHitbox(16, 16);

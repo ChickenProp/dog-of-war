@@ -10,12 +10,13 @@ public class EnemyMgr {
 		enemyTypes.push(BasicEnemy);
 		enemyTypes.push(BouncingEnemy);
 		enemyTypes.push(StrongEnemy);
+		enemyTypes.push(SkullEnemy);
 	}
 
 	public function update () : void {
 		var n:int = FP.world.typeCount("enemy");
 		for (; n < 20; n++) {
-			var type:Class = enemyTypes[FP.rand(3)];
+			var type:Class = enemyTypes[FP.rand(4)];
 			FP.world.add(new type());
 		}
 	}
