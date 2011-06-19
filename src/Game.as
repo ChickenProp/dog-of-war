@@ -42,6 +42,7 @@ public class Game extends World {
 		add(new Player());
 
 		cursor.blend = "add";
+		cursor.scale = 0.25;
 		
 		music.loop();
 	}
@@ -99,7 +100,7 @@ public class Game extends World {
 		// Hiding the mouse cursor doesn't seem to work (in firefox and
 		// chrome) before receiving mouse events, so we do it here.
 		//if (Input.mouseX || Input.mouseY)
-		//	Input.mouseCursor = "hide";
+			Input.mouseCursor = "hide";
 
 		enemyMgr.update();
 
@@ -114,7 +115,7 @@ public class Game extends World {
 	override public function render():void
 	{
 		super.render();
-		cursor.render(FP.buffer, new Point(Input.mouseX - cursor.width / 2, Input.mouseY - cursor.height / 2), FP.camera);
+		cursor.render(FP.buffer, new Point(Input.mouseX - cursor.width * cursor.scale / 2, Input.mouseY - cursor.height * cursor.scale / 2), FP.camera);
 		hud.render();
 		mainEmitter.render(FP.buffer, new Point(), FP.camera);
 		if (pause)
