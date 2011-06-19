@@ -6,6 +6,11 @@ import net.flashpunk.debug.*;
 
 public class Trail {
 	public var segments:Vector.<Segment> = new Vector.<Segment>();
+	
+	//swosh.mp3 from qubodup - thefreesoundproject
+	[Embed(source = '../content/sounds/swosh.mp3')]
+	private const CUT:Class;
+	public var cutSound:Sfx = new Sfx(CUT);
 
 	public function Trail () {
 	}
@@ -26,7 +31,10 @@ public class Trail {
 		add(new vec(x,y));
 	}
 
-	public function cut(seg:int) : void {
+	public function cut(seg:int) : void 
+	{
+		cutSound.play();
+		
 		for (var i:int = 0; i < numSegments - 1; i++) {
 			var s:Segment = segments[i];
 			(FP.world as Game).mainEmitter.CreateParticles(
