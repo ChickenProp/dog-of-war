@@ -32,7 +32,7 @@ package
 		public function update():void
 		{
 			scoreText.text = "SCORE: " + GameManager.visibleScore.toString();
-			distanceText.text = "DISTANCE: " +GameManager.distanceTravelled.toString() + "km";
+			distanceText.text = "DISTANCE: " +GameManager.distanceTravelled.toString() + "m";
 			
 			//FP.log("herpa derp derp");
 		}

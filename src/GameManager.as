@@ -6,7 +6,7 @@ package
 	{
 		static public var playtime:Number = 0;
 		static public var distanceTravelled:Number = 0;
-		static public var travellingSpeed:Number = 50;
+		static public var travellingSpeed:Number = 5;
 		
 		static public var score:int = 0;
 		static public var visibleScore:int = 0;
@@ -23,7 +23,7 @@ package
 		{
 			playtime = 0;
 			distanceTravelled = 0;
-			travellingSpeed = 50;
+			travellingSpeed = 5;
 		
 			score = 0;
 			visibleScore = 0;
