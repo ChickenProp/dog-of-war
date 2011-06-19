@@ -16,15 +16,27 @@ public class EnemyMgr {
 	}
 
 	public function update () : void {
-		var n:int = FP.world.classCount(BasicEnemy) + FP.world.classCount(Mine);
+		if (GameManager.distanceTravelled < 500)
+			return;
+
+		var n:int = subclassCount(BasicEnemy) + subclassCount(Mine);
+		FP.log("no. of enemies: " + n);
 		if (n < targetEnemies() && canAddEnemy())
 			addEnemy();
 
 		timeout--;
 	}
 
+	// FP.world.classCount doesn't get subclasses.
+	public function subclassCount (c:Class) : int {
+		var a:Array = [];
+		FP.world.getClass(c, a);
+		return a.length;
+	}
+
 	public function targetEnemies () : int {
-		return difficulty() + 2;
+		FP.log("difficulty: " + difficulty());
+		return difficulty();
 	}
 
 	public function canAddEnemy () : Boolean {

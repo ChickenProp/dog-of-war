@@ -8,7 +8,7 @@ package
 	 * ...
 	 * @author Sarah
 	 */
-	public class Laser extends BasicEnemy
+	public class Laser extends Hittable
 	{
 		[Embed(source = '../content/sprites/laser.png')]
 		private const LASER:Class;
