@@ -13,6 +13,8 @@ package {
 		[Embed(source = '../content/sprites/live.png')]
 		private const LIVE:Class;
 		private const lifeIcon:Image = new Image(LIVE);
+		[Embed(source = '../content/sprites/dogPlaneAnim.png')]
+		private const DOGPLANEANIM:Class;
 		
 		//tinning.mp3 from james duckett - thefreesoundproject
 		[Embed(source = '../content/sounds/tinning.mp3')]
@@ -30,6 +32,7 @@ package {
 		public var death:Sfx = new Sfx(DEATH);
 		
 		private var sprite:Image;
+		private var animatedSprite:Spritemap;
 		public var trail:Trail = new Trail();
 		public var dead:Boolean = true;
 		
@@ -39,9 +42,15 @@ package {
 		
 		private var numberInCombo:int = 0;
 		
+		private var minSegmentLength:Number = 2;
+		
 		public function Player () 
 		{
-			sprite = new Image(PLANE);
+			animatedSprite = new Spritemap(DOGPLANEANIM, 100, 100);
+			animatedSprite.add("wobble", [0, 1, 2, 3], 1);
+			animatedSprite.play("wobble");
+			
+			sprite = animatedSprite;//new Image(PLANE);
 			sprite.centerOrigin();
 			graphic = sprite;
 			setHitbox(16, 16);
@@ -67,7 +76,23 @@ package {
 			{
 				sprite.alpha = 1;
 				
-				trail.addxy(x,y);
+				var addNewSegment:Boolean = true;
+				
+				if(trail.numSegments > 1)
+				{
+					if(MathExtra.Pythagoras(x,y,
+						trail.segments[trail.numSegments - 1].end.x,
+						trail.segments[trail.numSegments - 1].end.y) < minSegmentLength)
+					{
+						addNewSegment = false;
+					}
+				}
+				
+				if(addNewSegment)
+				{
+					trail.addxy(x,y);	
+				}
+				
 				
 				var e:BasicEnemy = collide("enemy", x, y) as BasicEnemy;
 
@@ -218,21 +243,19 @@ package {
 			var enemies:Array = [];
 			world.getType("enemy", enemies);
 			
-			var enemiesToDestroy:Array = new Array();
+			var enemiesHit:Array = new Array();
 			
 			for (var i:int = 0; i < enemies.length; i++) {
 				var e:BasicEnemy = enemies[i] as BasicEnemy;
 				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-					//FP.world.remove(e);
-					enemiesToDestroy.push(e);
+					enemiesHit.push(e);
 				}
 			}
 			
-			numberInCombo = enemiesToDestroy.length;
+			numberInCombo = enemiesHit.length;
 			
-			for each(var tempEnemy:BasicEnemy in enemiesToDestroy)
-			{
-				tempEnemy.KilledByPlayer(numberInCombo);
+			for each(var tempEnemy:BasicEnemy in enemiesHit) {
+				tempEnemy.hit(numberInCombo);
 			}
 			
 			if(numberInCombo > 0)
