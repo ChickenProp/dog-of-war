@@ -39,18 +39,13 @@ package
 				FP.world.remove(this);
 		}
 
-		public function hit (comboSize:int) : void {
-			KilledByPlayer(comboSize);
+		public function hit () : Boolean {
+			KilledByPlayer();
+			return true;
 		}
 		
-		public function KilledByPlayer(comboSize:int):void
+		public function KilledByPlayer():void
 		{
-			
-			GameManager.score += pointsValue * comboSize;
-			
-			ExplodeWithParticles();
-			GenerateScoreParticle(pointsValue * comboSize);
-			
 			Destroy();
 		}
 		

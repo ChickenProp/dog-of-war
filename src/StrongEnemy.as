@@ -38,13 +38,17 @@ public class StrongEnemy extends BasicEnemy {
 
 	}
 
-	override public function hit (comboSize:int) : void {
+	override public function hit () : Boolean {
 		health--;
 		
 		sprite.color = 0xFF2400;
 
-		if (health == 0)
-			KilledByPlayer(comboSize);
+		if (health == 0) {
+			KilledByPlayer();
+			return true;
+		}
+		else
+			return false;
 	}
 }
 }

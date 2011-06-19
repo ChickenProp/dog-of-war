@@ -242,7 +242,7 @@ package {
 			var enemies:Array = [];
 			world.getClass(BasicEnemy, enemies);
 			
-			var enemiesHit:Array = new Array();
+			var enemiesKilled:Array = new Array();
 			
 			for (var i:int = 0; i < enemies.length; i++) 
 			{
@@ -250,15 +250,18 @@ package {
 				if (e)
 				{
 					if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-						enemiesHit.push(e);
+						if (e.hit())
+							enemiesKilled.push(e);
 					}
 				}
 			}
 			
-			numberInCombo = enemiesHit.length;
+			numberInCombo = enemiesKilled.length;
 			
-			for each(var tempEnemy:BasicEnemy in enemiesHit) {
-				tempEnemy.hit(numberInCombo);
+			for each(var tempEnemy:BasicEnemy in enemiesKilled) {
+				GameManager.score += tempEnemy.pointsValue * numberInCombo;
+				tempEnemy.ExplodeWithParticles();
+				tempEnemy.GenerateScoreParticle(tempEnemy.pointsValue * numberInCombo);
 			}
 			
 			if(numberInCombo > 0)
