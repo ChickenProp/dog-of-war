@@ -213,6 +213,9 @@ package {
 		
 		private function MoveToCursor() : void
 		{
+			if (! Game.haveHadMouseover)
+				return;
+
 			var nextPoint:vec = new vec(Input.mouseX, Input.mouseY);
 			
 			var tempDistance:Number = MathExtra.Pythagoras(x, y, nextPoint.x, nextPoint.y);

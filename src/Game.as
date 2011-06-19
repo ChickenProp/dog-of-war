@@ -34,6 +34,8 @@ public class Game extends World {
 
 	public var enemyMgr:EnemyMgr = new EnemyMgr();
 
+	public static var haveHadMouseover:Boolean = false;
+
 	public function Game () {
 		FP.watch("id");
 		hud = new HUD(this);
@@ -55,6 +57,9 @@ public class Game extends World {
 	
 	override public function update():void
 	{
+		if (Input.mouseX || Input.mouseY)
+			haveHadMouseover = true;
+
 		if (mute && music.volume == 1)
 			music.volume = 0;
 			
