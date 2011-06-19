@@ -332,14 +332,16 @@ package {
 		public function updateVulnerability () : void {
 			if (dead) {
 				invulntime = 0;
-				invulncolor = 0xFFFFFF;
+				invulncolor = 0x000000;
 			}
 			else {
 				invulntime--;
 				if (invulntime > 14)
 					invulncolor -= 0x001111;
-				else if (invulntime >= 0)
+				else if (invulntime > 0)
 					invulncolor += 0x001111;
+				else if (invulntime <= 0)
+					invulncolor = 0xFFFFFF;
 			}
 
 			(graphic as Image).color = invulncolor;
