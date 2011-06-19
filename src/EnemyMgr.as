@@ -52,7 +52,7 @@ public class EnemyMgr {
 	}
 
 	public function difficulty () : int {
-		return 2 + Math.floor(GameManager.distanceTravelled / 1000
+		return 2 + Math.floor(GameManager.distanceTravelled / 3000
 		                      + GameManager.score / 1000);
 	}
 

@@ -11,6 +11,10 @@ package
 	public class Hittable extends Entity
 	{
 
+		[Embed(source = '../content/sprites/basic.png')]
+		private const BASIC:Class;
+		public var sprite:Image = new Image(BASIC);
+
 		public static var count:int = 0;
 		public var id:int;
 		
@@ -18,10 +22,13 @@ package
 
 		public var vel:vec = new vec(-FP.random*2 - 0.5, 0);
 
-		
+		public var fadeOut:Boolean = false;
+		public var fadeMax:int = 50;
+		public var fadeTimer:int = fadeMax;
+
 		public function Hittable() 
 		{
-			graphic = Image.createRect(5, 5, 0xFF6600);
+			graphic = sprite;
 			(graphic as Image).centerOO();
 			x = 640 + FP.rand(100);
 			y = FP.rand(420) + 30;
@@ -33,10 +40,20 @@ package
 		}
 
 		override public function update () : void {
-			x += vel.x;
-			y += vel.y;
-			if (x < 0)
-				FP.world.remove(this);
+			if (fadeOut)
+			{
+				fadeTimer--;
+				sprite.alpha = fadeTimer / fadeMax;
+				if (sprite.alpha <= 0)
+					FP.world.remove(this);
+			}
+			else
+			{
+				x += vel.x;
+				y += vel.y;
+				if (x < 0)
+					FP.world.remove(this);
+			}
 		}
 
 		public function hit () : Boolean {
