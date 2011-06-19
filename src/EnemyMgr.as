@@ -16,7 +16,7 @@ public class EnemyMgr {
 	}
 
 	public function update () : void {
-		var n:int = FP.world.typeCount("enemy");
+		var n:int = FP.world.typeCount("enemy") - FP.world.classCount(Laser);
 		if (n < targetEnemies() && canAddEnemy())
 			addEnemy();
 

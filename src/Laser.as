@@ -26,7 +26,7 @@ package
 			x = xStart;
 			y = yStart;
 			
-			type = "bullet"; // Not "enemy" for counting purposes.
+			type = "enemy";
 			layer = 75;
 		}
 		
