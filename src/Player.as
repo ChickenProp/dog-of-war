@@ -139,7 +139,7 @@ package {
 						trail.empty();
 						
 						var enemiesToFade:Array = [];
-						FP.world.getType("enemy", enemiesToFade);
+						FP.world.getClass(Hittable, enemiesToFade);
 						for each(var enemy:Hittable in enemiesToFade)
 						{
 							enemy.fadeOut = true;

@@ -17,6 +17,8 @@ package {
 			sprite.centerOrigin();
 			graphic = sprite;
 			centerOrigin();
+
+			pointsValue = 75;
 		}
 		
 	}

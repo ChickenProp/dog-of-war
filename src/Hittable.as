@@ -30,7 +30,7 @@ package
 		{
 			graphic = sprite;
 			(graphic as Image).centerOO();
-			x = 640 + FP.rand(100);
+			x = 660 + FP.rand(80);
 			y = FP.rand(420) + 30;
 			setHitbox(5, 5);
 			centerOrigin();

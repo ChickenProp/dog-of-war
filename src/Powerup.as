@@ -5,7 +5,7 @@ import net.flashpunk.graphics.*;
 import net.flashpunk.utils.*;
 
 public class Powerup extends Hittable {
-	public var health:int = 3;
+	public var health:int = 1;
 
 	[Embed(source = '../content/sprites/powerup.png')]
 	private const POWERUP:Class;

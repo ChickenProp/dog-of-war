@@ -25,6 +25,8 @@ public class StrongEnemy extends BasicEnemy {
 		
 		setHitbox(20, 20);
 		centerOrigin();
+
+		pointsValue = 200;
 	}
 	
 	override public function update():void
