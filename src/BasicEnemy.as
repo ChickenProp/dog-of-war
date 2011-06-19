@@ -24,7 +24,7 @@ package
 			graphic = Image.createRect(5, 5, 0xFF6600);
 			(graphic as Image).centerOO();
 			x = 640 + FP.rand(100);
-			y = FP.rand(480);
+			y = FP.rand(360) + 60;
 			setHitbox(5, 5);
 			centerOrigin();
 			type = "enemy";
