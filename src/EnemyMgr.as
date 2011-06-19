@@ -16,7 +16,7 @@ public class EnemyMgr {
 	}
 
 	public function update () : void {
-		var n:int = FP.world.typeCount("enemy");
+		var n:int = FP.world.typeCount("enemy") - FP.world.classCount(Laser);
 		if (n < targetEnemies() && canAddEnemy())
 			addEnemy();
 
@@ -32,7 +32,7 @@ public class EnemyMgr {
 	}
 
 	public function difficulty () : int {
-		return Math.floor(GameManager.distanceTravelled / 10000
+		return Math.floor(GameManager.distanceTravelled / 1000
 		                  + GameManager.score / 1000);
 	}
 

@@ -13,6 +13,11 @@ package
 		[Embed(source = '../content/sprites/skullFly.png')]
 		private const SKULLANIM:Class;
 		
+		//laser1.mp3 from jobro - thefreesoundproject
+		[Embed(source = '../content/sounds/laser1.mp3')]
+		private const SHOT:Class;
+		public var shot:Sfx = new Sfx(SHOT);
+		
 		private const stillTime:int = 50;
 		private const fireTime:int = 100;
 		
@@ -47,6 +52,7 @@ package
 			{
 				if (fire)
 				{
+					shot.play();
 					FP.world.add(new Laser(x - 10, y - 7));
 					FP.world.add(new Laser(x, y - 3));
 					fire = false;
