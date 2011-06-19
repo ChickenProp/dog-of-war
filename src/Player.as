@@ -264,12 +264,11 @@ package {
 				tempEnemy.GenerateScoreParticle(tempEnemy.pointsValue * numberInCombo);
 			}
 			
-			if(numberInCombo > 0)
-			{
-				if(!Game.mute)
-					ting.play();
+			if(numberInCombo > 0 && !Game.mute)
+				ting.play();
+
+			if (numberInCombo > 1)
 				MakeComboText(numberInCombo);
-			}
 
 			trail.cut(seg);
 		}
