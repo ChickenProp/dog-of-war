@@ -24,11 +24,16 @@ public class EnemyMgr {
 	}
 
 	public function targetEnemies () : int {
-		return 20;
+		return difficulty() + 2;
 	}
 
 	public function canAddEnemy () : Boolean {
 		return timeout <= 0;
+	}
+
+	public function difficulty () : int {
+		return Math.floor(GameManager.distanceTravelled / 10000
+		                  + GameManager.score / 1000);
 	}
 
 	// Weighted towards the enemies which appear first in the array.
