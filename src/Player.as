@@ -44,7 +44,7 @@ package {
 			sprite = new Image(PLANE);
 			sprite.centerOrigin();
 			graphic = sprite;
-			setHitbox(32, 16);
+			setHitbox(16, 16);
 			type = "player";
 			x = 0;
 			y = 0;
@@ -74,7 +74,7 @@ package {
 				if (e)
 				{
 					if(!Game.mute)
-						hit.play(0.4);
+						hit.play();
 						
 					GameManager.lives--;
 					e.x = -1; 	//Will destroy and create new
