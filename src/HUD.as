@@ -2,7 +2,8 @@ package
 {
 	import flash.geom.Point;
 	
-	import net.flashpunk.FP;
+	import net.flashpunk.*;
+	import net.flashpunk.utils.*;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 
@@ -16,15 +17,18 @@ package
 		
 		private var distanceText:Text;
 		private var scoreText:Text;
+		private var hiscoreText:Text;
 		
 		public function HUD(myGame:Game)
 		{
 			game = myGame;
 			
 			scoreText = new Text("temp", 30, 30);
+			hiscoreText = new Text("hisc", 30, 50);
 			distanceText = new Text("dist", 30, 480 - 80);
 			
 			scoreText.color = 0x005522;
+			hiscoreText.color = 0x005522;
 			distanceText.color = 0x005522;
 			
 		}
@@ -32,6 +36,7 @@ package
 		public function update():void
 		{
 			scoreText.text = "SCORE: " + GameManager.visibleScore.toString();
+			hiscoreText.text = "HIGH SCORE: " + Data.readInt("highscore");
 			distanceText.text = "DISTANCE: " +GameManager.distanceTravelled.toString() + "m";
 			
 			//FP.log("herpa derp derp");
@@ -44,6 +49,7 @@ package
 			}
 			
 			scoreText.render(FP.buffer, new Point(), FP.camera);
+			hiscoreText.render(FP.buffer, new Point(), FP.camera);
 			distanceText.render(FP.buffer, new Point(), FP.camera);
 			
 		}

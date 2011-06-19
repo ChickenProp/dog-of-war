@@ -119,6 +119,8 @@ package {
 
 					if (GameManager.lives < 1)
 					{
+						Data.writeInt("highscore", GameManager.score);
+						
 						for (var i:int = 0; i < 10 ; i++)
 						{
 							if(FP.world is Game)
