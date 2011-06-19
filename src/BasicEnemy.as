@@ -35,6 +35,10 @@ package
 			if (x < 0)
 				FP.world.remove(this);
 		}
+
+		public function hit (comboSize:int) : void {
+			KilledByPlayer(comboSize);
+		}
 		
 		public function KilledByPlayer(comboSize:int):void
 		{

@@ -243,21 +243,19 @@ package {
 			var enemies:Array = [];
 			world.getType("enemy", enemies);
 			
-			var enemiesToDestroy:Array = new Array();
+			var enemiesHit:Array = new Array();
 			
 			for (var i:int = 0; i < enemies.length; i++) {
 				var e:BasicEnemy = enemies[i] as BasicEnemy;
 				if (trail.contains(new vec(e.x, e.y), seg, trail.segments.length-1)) {
-					//FP.world.remove(e);
-					enemiesToDestroy.push(e);
+					enemiesHit.push(e);
 				}
 			}
 			
-			numberInCombo = enemiesToDestroy.length;
+			numberInCombo = enemiesHit.length;
 			
-			for each(var tempEnemy:BasicEnemy in enemiesToDestroy)
-			{
-				tempEnemy.KilledByPlayer(numberInCombo);
+			for each(var tempEnemy:BasicEnemy in enemiesHit) {
+				tempEnemy.hit(numberInCombo);
 			}
 			
 			if(numberInCombo > 0)
