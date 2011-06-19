@@ -47,9 +47,13 @@ public class Trail {
 		if (segments.length < 2)
 			return;
 
+		FP.sprite.graphics.clear();
+
 		for (var i:int = 0; i < segments.length; i++) {
 			segments[i].draw();
 		}
+
+		FP.buffer.draw(FP.sprite, null, null);
 	}
 	
 	// Check whether the final section intersects any other section. Returns
