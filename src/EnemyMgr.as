@@ -18,9 +18,6 @@ public class EnemyMgr {
 	}
 
 	public function update () : void {
-		if (GameManager.distanceTravelled < 500)
-			return;
-
 		if (subclassCount(BasicEnemy) < targetEnemies() && canAddEnemy())
 			addEnemy();
 
@@ -43,7 +40,7 @@ public class EnemyMgr {
 	}
 
 	public function targetMines () : int {
-		return difficulty() * 3;
+		return difficulty() * 2;
 	}
 
 	public function canAddEnemy () : Boolean {
@@ -55,8 +52,8 @@ public class EnemyMgr {
 	}
 
 	public function difficulty () : int {
-		return Math.floor(GameManager.distanceTravelled / 1000
-		                  + GameManager.score / 1000);
+		return 2 + Math.floor(GameManager.distanceTravelled / 1000
+		                      + GameManager.score / 1000);
 	}
 
 	// Weighted towards the enemies which appear first in the array.
